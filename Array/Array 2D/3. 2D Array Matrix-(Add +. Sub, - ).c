@@ -71,7 +71,7 @@ int main()
         printf("\n");
         printf("\t");
     }
-    //Addition AA and BB Matrix && stored in C
+    //Subtraction AA and BB Matrix && stored in C
     for(row=0;row<num_row;row++)
     {
         for(col=0;col<num_col;col++)
