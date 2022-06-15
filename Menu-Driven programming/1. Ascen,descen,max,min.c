@@ -8,8 +8,8 @@
 #include <stdio.h>
 int main()
 {
-    printf("1. Asending\n");
-    printf("2. Desending\n");
+    printf("1. Ascending\n");
+    printf("2. Descending\n");
     printf("3. Maximun\n");
     printf("4. Minimum\n");
 
