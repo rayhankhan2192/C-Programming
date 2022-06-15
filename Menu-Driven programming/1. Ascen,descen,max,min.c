@@ -1,6 +1,6 @@
 /*/*1.Write a menu driven program which has following options:
-1. Asending
-2. Desending
+1. Ascending
+2. Descending
 3. Maximun
 4. Minimum
  */
