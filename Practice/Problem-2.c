@@ -12,4 +12,5 @@ int main()
     printf("1 + 2 + 3 +.... + %d = %d",number,sum);
 
     return 0;
+    
 }
