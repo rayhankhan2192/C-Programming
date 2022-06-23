@@ -25,4 +25,5 @@ int main()
         printf("\n\n1 + 3 + 5 +.....+ %d = %d\n\n",number,sum);
 
     }
+    
 }
