@@ -11,4 +11,5 @@ int main()
         i++;
     }while(i<=number);
     printf("1 + 2 + 3 +.....+ %d = %d",number,sum);
+    
 }
