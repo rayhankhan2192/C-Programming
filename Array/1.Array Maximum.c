@@ -23,6 +23,7 @@ int main()
 
         printf("The maximum number is = %d\n",max);
     }
+    
     getch();
 
 }
