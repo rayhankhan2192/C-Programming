@@ -21,4 +21,5 @@ int main()
         printf("Average = %.1f\n",(float)sum/5);
 
     getch();
+        
 }
