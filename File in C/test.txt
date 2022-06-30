@@ -1,0 +1,10 @@
+Name : MD RAYHAN KHAN
+Age = 21
+Name : MR JOHN
+Age = 23
+Name : MR DEVID
+Age = 23
+Name : MR KHAN
+Age = 21
+Name : ELON MUSK
+Age = 37
