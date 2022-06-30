@@ -1,4 +1,5 @@
 /*write name by using fputs in file*/
+
 #include<stdio.h>
 int main()
 {
