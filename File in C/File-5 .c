@@ -1,4 +1,5 @@
 /*Read from file by use fgets */
+
 #include<stdio.h>
 int main()
 {
