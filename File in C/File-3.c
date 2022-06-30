@@ -1,4 +1,5 @@
 /*write name age by using fprintf in file*/
+
 #include<stdio.h>
 int main()
 {
