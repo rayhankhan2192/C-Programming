@@ -22,6 +22,7 @@ int main()
         fprintf(file,"Name : %s\nAge = %d\n",name,age);
         printf("\nFile is written successfully.\n\n");
     }
+    
     return 0;
 
 
