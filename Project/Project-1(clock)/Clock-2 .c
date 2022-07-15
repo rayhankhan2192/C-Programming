@@ -7,6 +7,7 @@ void main()
     int hour=0,minute=0,second=0;
 
  clrscr();
+    
 
     start:{}
     for(hour;hour<24;hour++)
