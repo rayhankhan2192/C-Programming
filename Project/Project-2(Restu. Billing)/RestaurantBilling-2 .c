@@ -26,20 +26,20 @@ void billheader(char name[50], char date[50])
     printf("\n\t      -----------------");
 
     // get date and time both with the function
-    /*
-    time_t rawtime;
+
+    /*time_t rawtime;
     struct tm*timeinfo;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    printf("\nTime: %s",asctime(timeinfo));
-    */
+    printf("\nTime: %s",asctime(timeinfo));*/
+
 
     time_t t = time(NULL);
     char *time_str = ctime(&t);
     time_str[strlen(time_str) - 1] = '\0';
     printf("\nTime: %s", time_str);
 
-    // printf("\nDate: %s\n", date);
+    printf("\nDate: %s", date);
     printf("\nInvoice to: %s", name);
     printf("\n----------------------------------------");
     printf("\nItems");
@@ -50,16 +50,15 @@ void billheader(char name[50], char date[50])
 }
 
 // bill body (bill calculate here & print)
-void billbody(char item[30], int qty, float price)
+void product_price_count(char item[30], int qty, float price)
 {
     printf("%s", item);
     printf("\t\t%d*%.0f", qty, price);
     printf("\t\t%.2f", qty * price);
     printf("\n");
 }
-
 // bill final count
-void billfooter(float total)
+void total_bill_calculate(float total)
 {
     printf("\n");
     float discount = 0.05 * total;
@@ -91,13 +90,14 @@ int main()
     {
         float total = 0;
         char name[50];
+        char createFile[30];
 
         printf("\n\t\t==========Yellow Restaurant==========");
         printf("\n\nSelect your prepared options: ");
         printf("\n\n1.Generate Invoice");
-        printf("\n2.Show All Invoice");
-        printf("\n3.Search Invoice");
-        printf("\n4.Exit\n");
+       //printf("\n2.Show All Invoice");
+        printf("\n2.Search Invoice");
+        printf("\n3.Exit\n");
 
         printf("\nChoose an option: ");
         scanf("%d", &operators);
@@ -105,7 +105,7 @@ int main()
         switch (operators)
         {
         case 1:
-            // system("cls");
+            system("cls");
             printf("\nEnter the name of Customer: ");
             fgets(ord.customer, 50, stdin);
             ord.customer[strlen(ord.customer) - 1] = 0;
@@ -129,15 +129,16 @@ int main()
             billheader(ord.customer, ord.date);
             for (i = 0; i < ord.numberOfItem; i++)
             {
-                billbody(ord.itm[i].item, ord.itm[i].qty, ord.itm[i].price);
+                product_price_count(ord.itm[i].item, ord.itm[i].qty, ord.itm[i].price);
             }
-            billfooter(total);
+            total_bill_calculate(total);
 
             printf("Do you want to save the Invoice[y/n]: ");
             scanf("%s", &saveBill);
             if (saveBill == 'y' || saveBill == 'Y')
             {
-                file = fopen("Customer-Info-2.txt", "a+");
+                strcpy(createFile,ord.customer);
+                file = fopen(strcat(createFile,".txt"), "a+");
                 fwrite(&ord, sizeof(struct orders), 1, file);
                 if (fwrite != 0)
                 {
@@ -150,70 +151,85 @@ int main()
             }
             fclose(file);
             break;
+                
+                /*
+
+       // i can't open all file.
+
 
         case 2:
-            // system("cls");
-            file = fopen("Customer-Info-2.txt", "r+");
+            system("cls");
+            file = fopen("Rayhan.txt", "r");
             printf("\n\t      Your previous Invoices");
             printf("\n\t     ------------------------");
-            while (fread(&order, sizeof(struct orders), 1, file))
-                ;
-            {
-                billheader(order.customer, order.date);
-                for (i = 0; i < order.numberOfItem; i++)
-                {
-                    billbody(order.itm[i].item, order.itm[i].qty, order.itm[i].price);
-                    total += order.itm[i].qty * order.itm[i].price;
-                }
-                billfooter(total);
-            }
-            fclose(file);
-            break;
 
-        case 3:
-            // system("cls");
+            fread(&order, sizeof(struct orders), 1, file);
+            fclose(file);
+
+            billheader(order.customer, order.date);
+            for (i = 0; i < order.numberOfItem; i++)
+            {
+                billbody(order.itm[i].item, order.itm[i].qty, order.itm[i].price);
+                total += order.itm[i].qty * order.itm[i].price;
+            }
+            (total);
+
+
+            break; */
+
+        case 2:
+            system("cls");
             printf("Enter the name of customer: ");
             fgets(name, 50, stdin);
             name[strlen(name) - 1] = 0;
             printf("\n\t     Invoice of %s", name);
             printf("\n\t    ------------------------");
-            file = fopen("Customer-Info-2.txt", "r+");
-            while (fread(&order, sizeof(struct orders), 1, file))
-                ;
+            strcpy(createFile,name);
+            file = fopen(strcat(createFile,".txt"), "r");
+            if(file==NULL)
             {
-                if (!strcmp(order.customer, name))
-                {
-
-                    billheader(order.customer, order.date);
-                    for (i = 0; i < order.numberOfItem; i++)
-                    {
-                        billbody(order.itm[i].item, order.itm[i].qty, order.itm[i].price);
-                        total += order.itm[i].qty * order.itm[i].price;
-                    }
-                    billfooter(total);
-                }
-                else
-                {
-                    printf("\n\nsorry!\nInvoice of [%s] doesn't matches.\n\n", name);
-                }
+                printf("\n\n\tSorry! Invoice doesn't exists.\n");
             }
-            fclose(file);
+            else
+            {
+                fread(&order, sizeof(struct orders), 1, file);
+                fclose(file);
+
+                billheader(order.customer, order.date);
+                for (i = 0; i < order.numberOfItem; i++)
+                {
+                    product_price_count(order.itm[i].item, order.itm[i].qty, order.itm[i].price);
+                    total += order.itm[i].qty * order.itm[i].price;
+                }
+                total_bill_calculate(total);
+            }
+
+
             break;
 
-        case 4:
-            // system("cls");
+        case 3:
+            system("cls");
             printf("\n\n\t\t~~~~BYE BYE~~~~\n\n");
+            break;
 
         default:
-            // system("cls");
+
             printf("\nSORRY! Invalid option\n");
             printf("Please! Enter valid option.\n");
         }
         printf("\nDo you want to continue[y/n]: ");
         scanf("%s", &continues);
+        system("cls");
         printf("\n");
     }
-    printf("\n\t~~~~BYE BYE~~~~\n\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t   ~~~~BYE BYE~~~~\n\n");
 
-    return 0;
+    getch();
 }
+
+
+
+//system Error
+
+// 1. doesn't open all invoice [Line-161-179]
+//its showing real time when search invoice
