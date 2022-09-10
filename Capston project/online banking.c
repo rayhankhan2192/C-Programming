@@ -131,7 +131,65 @@ void crecate_Admin_Ac(FILE *file,char createFile[30],int n)
     }
 }
 
+void crecate_management_Ac(FILE *file,char createFile[30],int n)
+{
+    fgetc(stdin);
 
+    printf("\t\t\t\t\tEnter your name\t\t: ");
+    fgets(user.name,30,stdin);
+    user.name[strlen(user.name)-1]=0;
+
+    printf("\t\t\t\t\tEnter your number\t: ");
+    fgets(user.phonenumber,15,stdin);
+    user.phonenumber[strlen(user.phonenumber)-1] = 0;
+
+    printf("\t\t\t\t\tEnter your NID\t\t: ");
+    fgets(user.nid,20,stdin);
+    user.nid[strlen(user.nid)-1] = 0;
+
+    printf("\t\t\t\t\tEnter your Gmail\t: ");
+    fgets(user.gmail,30,stdin);
+    user.gmail[strlen(user.gmail)-1] = 0;
+
+    printf("\t\t\t\t\tCreate username\t\t: ");
+    fgets(user.user_name,20,stdin);
+    user.user_name[strlen(user.user_name)-1] = 0;
+
+    strcpy(createFile,user.user_name);
+    file = fopen(strcat(createFile,".dat"),"r");
+    fread(&user,sizeof(struct userinfo),1,file);
+    fclose(file);
+    if(file!=NULL)
+    {
+        printf("\t\t\t\t\tUsername taken before! Try again\n\n");
+    }
+    else
+    {
+        printf("\t\t\t\t\tCreate password\t\t: ");
+        fgets(user.password,30,stdin);
+        user.password[strlen(user.password)-1]=0;
+
+        printf("\t\t\t\t\tReEnter password\t: ");
+        fgets(user.Re_enter_pass,30,stdin);
+        user.Re_enter_pass[strlen(user.Re_enter_pass)-1]=0;
+
+        if(!strcmp(user.password,user.Re_enter_pass))
+        {
+            strcpy(createFile,user.user_name);
+            file = fopen(strcat(createFile,".dat"),"w");
+            fwrite(&user,sizeof(struct userinfo),1,file);
+            fclose(file);
+            if(fwrite!=NULL)
+            {
+                printf("\n\t\t\t\t\tAccount registered successfully!\n");
+            }
+            else
+            {
+                printf("\n\t\t\t\t\tSomething went wrong! Please try again.\n");
+            }
+        }
+    }
+}
 int main()
 {
     system("COLOR B");
@@ -142,22 +200,18 @@ int main()
     char cont= 'y',ch;
     FILE *file;
 
-
-    while(cont=='y' || cont=='Y')
+    while(cont=='y')
     {
 
         printf("\n\t\t\t\t\t  ONLINE BANKING SYSTEM\n");
         printf("\t\t\t\t\t__________________________\n\n");
-
         printf("\t\t\t\t\t1.Apply for Create AC\n");
         printf("\t\t\t\t\t2.Login into user AC\n");
         printf("\t\t\t\t\t3.Bank Managment\n");
         printf("\t\t\t\t\t4.Exit\n");
         printf("\t\t\t\t\t__________________________\n\n");
-
         printf("\t\t\t\t\tChoose an option: ");
         scanf("%d",&n);
-
         fgetc(stdin);
         if(n==1)
         {
@@ -176,7 +230,7 @@ int main()
         }
         if(n==3)
         {
-            while(cont=='y' || cont=='y')
+            while(cont=='y')
             {
                 n=0;
                 system("cls");
@@ -192,17 +246,78 @@ int main()
 
                 if(n==1)
                 {
-                    system("cls");
-                    printf("\t\t\t\t\t________________________________________\n\n");
-                    printf("\t\t\t\t\t Upcoming features will available soon!\n\n");
-                    printf("\t\t\t\t\t________________________________________\n\n");
-                    cont_loop(n);
+                    while(cont=='y')
+                    {
+                        n=0;
+                        system("cls");
+                        printf("\t\t\t\t\t  Login Into Management Pannel\n\n");
+                        printf("\t\t\t\t\t___________________________\n\n");
+                        printf("\t\t\t\t\tEnter User Name: ");
+                        scanf("%s",&login_userName);
+                        strcpy(createFile,login_userName);
+                        file = fopen(strcat(createFile,".dat"),"r");
+                        fread(&user,sizeof(struct userinfo),1,file);
+                        fclose(file);
 
+                        if(file==NULL)
+                        {
+                            printf("\n\t\t\t\t\tAccount Invalid\n\n");
+                            cont_loop(n);
+                        }
+                        else
+                        {
+                            fgetc(stdin);
+                            printf("\t\t\t\t\tEnter Password : ");
+                            fgets(login_password,30,stdin);
+                            login_password[strlen(login_password)-1]=0;
+                            if(!strcmp(user.password,login_password))
+                            {
+                                while(cont=='y')
+                                {
+                                    system("cls");
+                                    printf("\t\t\t\t\t________________________________________\n\n");
+                                    printf("\t\t\t\t\t      Welcome to Management AC\n");
+                                    printf("\t\t\t\t\t________________________________________\n\n");
+                                    printf("\t\t\t\t\tAccount holder name: %s\n\n",user.name);
+                                    printf("\t\t\t\t\t1.USER INFO\n");
+                                    printf("\t\t\t\t\t2.LOGIN USER AC\n");
+                                    printf("\t\t\t\t\t3.CREATR USER AC\n");
+                                    printf("\t\t\t\t\t4.USER APPLY\n\n");
+                                    printf("\t\t\t\t\t5.MANAGEMENT INFO\n");
+                                    printf("\t\t\t\t\t6.CHANGE YOUR PASSWORD\n");
+                                    printf("\t\t\t\t\t7.BACK\n");
+                                    printf("\t\t\t\t\t8.EXIT\n");
+                                    printf("\t\t\t\t\t________________________________________\n");
+                                    printf("\t\t\t\t\tChoose an option: ");
+                                    scanf("%d",&n);
+                                    if(n==7)
+                                    {
+                                        n=0;
+                                        break;
+                                    }
+                                }
+                            }
+                            cont_loop(n);
+                        }
+                        if(n==3)
+                        {
+                            n=0;
+                            break;
+                        }
+                        if(n==4)
+                        {
+                            n=0;
+                            exit(1);
+                        }
+                        cont = 'y';
+                        system("cls");
+                        continue;
+                    }
                 }
                 fgetc(stdin);
                 if(n==2)
                 {
-                    while(cont=='y')
+                    while(cont=='y' || cont=='Y')
                     {
                         n=0;
                         system("cls");
@@ -256,16 +371,46 @@ int main()
                                 login_password[strlen(login_password)-1]=0;
                                 if(!strcmp(user.password,login_password))
                                 {
-                                    system("cls");
-                                    printf("\t\t\t\t\t________________________________________\n\n");
-                                    printf("\t\t\t\t\t Upcoming features will available soon!\n\n");
-                                    printf("\t\t\t\t\t________________________________________\n\n");
-                                    cont_loop(n);
-                                }
-                                else
-                                {
-                                    printf("\n\t\t\t\t\tWrong Password\n\n");
-                                    cont_loop(n);
+                                    while(cont=='y')
+                                    {
+                                        system("cls");
+                                        printf("\t\t\t\t\t________________________________________\n");
+                                        printf("\n\t\t\t\t\t      WELCOME TO ADMIN PANNEL \n");
+                                        printf("\t\t\t\t\t________________________________________\n\n");
+
+                                        printf("\t\t\t\t\t1.CLIENT INFOEMATION\n");
+                                        printf("\t\t\t\t\t2.RECOVER CLIENT INFOEMATION\n\n");
+                                        printf("\t\t\t\t\t3.MANAGEMENT INFORMATION\n");
+                                        printf("\t\t\t\t\t4.RECOVER MANAGEMENT INFORMATION\n");
+                                        printf("\t\t\t\t\t5.CREATE MANAGEMENT AC\n\n");
+                                        printf("\t\t\t\t\t6.TOTAL BALANCE\n\n");
+                                        printf("\t\t\t\t\t7.CHANGE YOUR PASSWORD\n");
+                                        printf("\t\t\t\t\t8.Back\n");
+                                        printf("\t\t\t\t\t9.Exit\n");
+                                        printf("\t\t\t\t\t________________________________________\n\n");
+                                        printf("\t\t\t\t\tChoose an option: ");
+                                        scanf("%d",&n);
+                                        //fgetc(stdin);
+                                        if(n==5)
+                                        {
+                                            system("cls");
+                                            n=0;
+                                            printf("\t\t\t\t\t_______________________________\n");
+                                            printf("\n\t\t\t\t\t CREATE MANAGEMENT AC\n");
+                                            printf("\t\t\t\t\t_______________________________\n");
+
+                                            crecate_management_Ac(file,createFile,n);
+                                            cont_loop(n);
+                                        }
+                                        if(n==8)
+                                        {
+                                            n=0;
+                                            break;
+                                        }
+                                        cont = 'y';
+                                        system("cls");
+                                        continue;
+                                    }
                                 }
                             }
                         }
@@ -290,7 +435,6 @@ int main()
                 }
                 if(n==4)
                 {
-                    n=0;
                     exit(1);
                 }
                 cont = 'y';
@@ -307,5 +451,3 @@ int main()
         continue;
     }
 }
-
-
