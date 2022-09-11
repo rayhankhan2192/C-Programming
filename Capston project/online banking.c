@@ -12,6 +12,8 @@ struct userinfo
     char user_name[20];
     char password[30];
     char Re_enter_pass[30];
+    char pass_1[30];
+    char pass_2[30];
 } user;
 void cont_loop(int n)
 {
@@ -31,29 +33,31 @@ void cont_loop(int n)
 void apply_user_Ac(FILE *file,char createFile[30],int n)
 {
     system("cls");
-    printf("\t\t\t\t\t Apply for Create AC\n");
-    printf("\t\t\t\t\t_____________________\n\n");
-    printf("Enter your name\t\t\t: ");
+    printf("\t\t\t\t\t____________________________________\n\n");
+    printf("\t\t\t\t\t      APPLY FOR ACCOUNT\n");
+    printf("\t\t\t\t\t____________________________________\n\n");
+    printf("\t\t\t\t\tEnter Name\t: ");
     fgets(user.name,30,stdin);
     user.name[strlen(user.name)-1]=0;
 
-    printf("Enter your number\t\t: ");
+    printf("\t\t\t\t\tEnter Number\t: ");
     fgets(user.phonenumber,15,stdin);
     user.phonenumber[strlen(user.phonenumber)-1] = 0;
 
-    printf("Enter your NID\t\t\t: ");
+    printf("\t\t\t\t\tEnter NID\t: ");
     fgets(user.nid,20,stdin);
     user.nid[strlen(user.nid)-1] = 0;
 
-    printf("Enter your Gmail\t\t: ");
+    printf("\t\t\t\t\tEnter Gmail\t: ");
     fgets(user.gmail,30,stdin);
     user.gmail[strlen(user.gmail)-1] = 0;
 
-    printf("Your Address\t\t\t: ");
+    printf("\t\t\t\t\tYour Address\t: ");
     fgets(user.address,50,stdin);
     user.address[strlen(user.address)-1] = 0;
 
-    printf("\n\nDo you want to submit: \n1.Yes\n2.NO");
+    printf("\t\t\t\t\t____________________________________\n\n");
+    printf("\t\t\t\t\tDo you want to submit: \n\t\t\t\t\t1.Yes\n\t\t\t\t\t2.NO\n");
     scanf("%d",&n);
     if(n==1)
     {
@@ -63,11 +67,21 @@ void apply_user_Ac(FILE *file,char createFile[30],int n)
         fprintf(file,"%s\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s\n",user.name,user.phonenumber,user.nid,user.gmail,user.address);
         fclose(file);
 
-        printf("'\n\t\t\t\t\tApplied Successfully!\n\n");
+        system("cls");
+        printf("\t\t\t\t\t____________________________________\n\n");
+        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+        printf("\t\t\t\t\t____________________________________\n");
+        printf("'\n\t\t\t\t\t Successfully Applied !\n\n");
+        printf("\t\t\t\t\t____________________________________");
     }
     if(n==2)
     {
-        printf("\n\t\t\t\t\tSuccessfuly Cancled!\n\n");
+        system("cls");
+        printf("\t\t\t\t\t____________________________________\n\n");
+        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+        printf("\t\t\t\t\t____________________________________\n");
+        printf("\n\t\t\t\t\tApplication Successfully Canceled!\n\n");
+        printf("\t\t\t\t\t____________________________________");
     }
 }
 
@@ -75,23 +89,23 @@ void crecate_Admin_Ac(FILE *file,char createFile[30],int n)
 {
     fgetc(stdin);
 
-    printf("\t\t\t\t\tEnter your name\t\t: ");
+    printf("\t\t\t\t\tEnter Name\t\t: ");
     fgets(user.name,30,stdin);
     user.name[strlen(user.name)-1]=0;
 
-    printf("\t\t\t\t\tEnter your number\t: ");
+    printf("\t\t\t\t\tEnter Number\t\t: ");
     fgets(user.phonenumber,15,stdin);
     user.phonenumber[strlen(user.phonenumber)-1] = 0;
 
-    printf("\t\t\t\t\tEnter your NID\t\t: ");
+    printf("\t\t\t\t\tEnter NID\t\t: ");
     fgets(user.nid,20,stdin);
     user.nid[strlen(user.nid)-1] = 0;
 
-    printf("\t\t\t\t\tEnter your Gmail\t: ");
+    printf("\t\t\t\t\tEnter Gmail\t\t: ");
     fgets(user.gmail,30,stdin);
     user.gmail[strlen(user.gmail)-1] = 0;
 
-    printf("\t\t\t\t\tCreate username\t\t: ");
+    printf("\t\t\t\t\tCreate Username\t\t: ");
     fgets(user.user_name,20,stdin);
     user.user_name[strlen(user.user_name)-1] = 0;
 
@@ -105,11 +119,11 @@ void crecate_Admin_Ac(FILE *file,char createFile[30],int n)
     }
     else
     {
-        printf("\t\t\t\t\tCreate password\t\t: ");
+        printf("\t\t\t\t\tCreate Password\t\t: ");
         fgets(user.password,30,stdin);
         user.password[strlen(user.password)-1]=0;
 
-        printf("\t\t\t\t\tReEnter password\t: ");
+        printf("\t\t\t\t\tReEnter Password\t: ");
         fgets(user.Re_enter_pass,30,stdin);
         user.Re_enter_pass[strlen(user.Re_enter_pass)-1]=0;
 
@@ -135,23 +149,23 @@ void crecate_management_Ac(FILE *file,char createFile[30],int n)
 {
     fgetc(stdin);
 
-    printf("\t\t\t\t\tEnter your name\t\t: ");
+    printf("\t\t\t\t\tEnter Name\t\t: ");
     fgets(user.name,30,stdin);
     user.name[strlen(user.name)-1]=0;
 
-    printf("\t\t\t\t\tEnter your number\t: ");
+    printf("\t\t\t\t\tEnter Number\t\t: ");
     fgets(user.phonenumber,15,stdin);
     user.phonenumber[strlen(user.phonenumber)-1] = 0;
 
-    printf("\t\t\t\t\tEnter your NID\t\t: ");
+    printf("\t\t\t\t\tEnter NID\t\t: ");
     fgets(user.nid,20,stdin);
     user.nid[strlen(user.nid)-1] = 0;
 
-    printf("\t\t\t\t\tEnter your Gmail\t: ");
+    printf("\t\t\t\t\tEnter Gmail\t\t: ");
     fgets(user.gmail,30,stdin);
     user.gmail[strlen(user.gmail)-1] = 0;
 
-    printf("\t\t\t\t\tCreate username\t\t: ");
+    printf("\t\t\t\t\tCreate Username\t\t: ");
     fgets(user.user_name,20,stdin);
     user.user_name[strlen(user.user_name)-1] = 0;
 
@@ -165,11 +179,11 @@ void crecate_management_Ac(FILE *file,char createFile[30],int n)
     }
     else
     {
-        printf("\t\t\t\t\tCreate password\t\t: ");
+        printf("\t\t\t\t\tCreate Password\t\t: ");
         fgets(user.password,30,stdin);
         user.password[strlen(user.password)-1]=0;
 
-        printf("\t\t\t\t\tReEnter password\t: ");
+        printf("\t\t\t\t\tReEnter Password\t: ");
         fgets(user.Re_enter_pass,30,stdin);
         user.Re_enter_pass[strlen(user.Re_enter_pass)-1]=0;
 
@@ -199,17 +213,18 @@ int main()
     char createFile[30];
     char cont= 'y',ch;
     FILE *file;
+    FILE *pass_file;
 
     while(cont=='y')
     {
-
-        printf("\n\t\t\t\t\t  ONLINE BANKING SYSTEM\n");
-        printf("\t\t\t\t\t__________________________\n\n");
-        printf("\t\t\t\t\t1.Apply for Create AC\n");
-        printf("\t\t\t\t\t2.Login into user AC\n");
-        printf("\t\t\t\t\t3.Bank Managment\n");
-        printf("\t\t\t\t\t4.Exit\n");
-        printf("\t\t\t\t\t__________________________\n\n");
+        printf("\t\t\t\t\t____________________________________\n\n");
+        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+        printf("\t\t\t\t\t____________________________________\n\n");
+        printf("\t\t\t\t\t  1.APPLY FOR CREATE AC\n");
+        printf("\t\t\t\t\t  2.LOGIN INTO USER AC\n");
+        printf("\t\t\t\t\t  3.BANK MANAGEMENT\n");
+        printf("\t\t\t\t\t  4.EXIT\n");
+        printf("\t\t\t\t\t____________________________________\n\n");
         printf("\t\t\t\t\tChoose an option: ");
         scanf("%d",&n);
         fgetc(stdin);
@@ -228,133 +243,79 @@ int main()
             printf("\t\t\t\t\t________________________________________\n\n");
             cont_loop(n);
         }
+        //fgetc(stdin);
         if(n==3)
         {
-            while(cont=='y')
+            system("cls");
+            n=100;
+            if(n==00)
             {
-                n=0;
-                system("cls");
-                printf("\t\t\t\t\t__________________________\n");
-                printf("\n\t\t\t\t\t1.Login Into Management AC\n");
-                printf("\t\t\t\t\t2.Admin Pannel\n");
-                printf("\t\t\t\t\t3.Back\n");
-                printf("\t\t\t\t\t4.Exit\n");
-                printf("\t\t\t\t\t__________________________\n\n");
-                printf("\t\t\t\t\tChoose an option: ");
-                scanf("%d",&n);
-                // cont_loop(n);
+                printf("\t\t\t\t\t____________________________________\n\n");
+                printf("\t\t\t\t\t     GENERATE MANAGEMENT PASSWORD\n");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                pass_file = fopen("manag_pass.txt","w");
+                printf("\t\t\t\t\tCreate Password  : ");
+                fgets(user.pass_1,30,stdin);
+                user.pass_1[strlen(user.pass_1)-1]=0;
 
-                if(n==1)
+                printf("\t\t\t\t\tReEnter Password : ");
+                fgets(user.pass_2,30,stdin);
+                user.pass_2[strlen(user.pass_2)-1]=0;
+                fwrite(&user,sizeof(struct userinfo),1,pass_file);
+                fclose(pass_file);
+
+                system("cls");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                printf("\t\t\t\t\tPassword Successfully Setup!\n");
+                printf("\t\t\t\t\t      !!Warning!!\n");
+                printf("\t\t\t\t\tStop Password generator after setup.\n\n");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                cont_loop(n);
+            }
+            else
+            {
+                pass_file = fopen("manag_pass.txt","r");
+                fread(&user,sizeof(struct userinfo),1,pass_file);
+                printf("\t\t\t\t\t____________________________________\n\n");
+                printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                printf("\t\t\t\t\tEnter password: ");
+                fgets(login_password,30,stdin);
+                login_password[strlen(login_password)-1]=0;
+                fclose(pass_file);
+
+                if(!strcmp(user.pass_2,login_password))
                 {
                     while(cont=='y')
                     {
-                        n=0;
-                        system("cls");
-                        printf("\t\t\t\t\t  Login Into Management Pannel\n\n");
-                        printf("\t\t\t\t\t___________________________\n\n");
-                        printf("\t\t\t\t\tEnter User Name: ");
-                        scanf("%s",&login_userName);
-                        strcpy(createFile,login_userName);
-                        file = fopen(strcat(createFile,".dat"),"r");
-                        fread(&user,sizeof(struct userinfo),1,file);
-                        fclose(file);
 
-                        if(file==NULL)
-                        {
-                            printf("\n\t\t\t\t\tAccount Invalid\n\n");
-                            cont_loop(n);
-                        }
-                        else
-                        {
-                            fgetc(stdin);
-                            printf("\t\t\t\t\tEnter Password : ");
-                            fgets(login_password,30,stdin);
-                            login_password[strlen(login_password)-1]=0;
-                            if(!strcmp(user.password,login_password))
-                            {
-                                while(cont=='y')
-                                {
-                                    system("cls");
-                                    printf("\t\t\t\t\t________________________________________\n\n");
-                                    printf("\t\t\t\t\t      Welcome to Management AC\n");
-                                    printf("\t\t\t\t\t________________________________________\n\n");
-                                    printf("\t\t\t\t\tAccount holder name: %s\n\n",user.name);
-                                    printf("\t\t\t\t\t1.USER INFO\n");
-                                    printf("\t\t\t\t\t2.LOGIN USER AC\n");
-                                    printf("\t\t\t\t\t3.CREATR USER AC\n");
-                                    printf("\t\t\t\t\t4.USER APPLY\n\n");
-                                    printf("\t\t\t\t\t5.MANAGEMENT INFO\n");
-                                    printf("\t\t\t\t\t6.CHANGE YOUR PASSWORD\n");
-                                    printf("\t\t\t\t\t7.BACK\n");
-                                    printf("\t\t\t\t\t8.EXIT\n");
-                                    printf("\t\t\t\t\t________________________________________\n");
-                                    printf("\t\t\t\t\tChoose an option: ");
-                                    scanf("%d",&n);
-                                    if(n==7)
-                                    {
-                                        n=0;
-                                        break;
-                                    }
-                                }
-                            }
-                            cont_loop(n);
-                        }
-                        if(n==3)
-                        {
-                            n=0;
-                            break;
-                        }
-                        if(n==4)
-                        {
-                            n=0;
-                            exit(1);
-                        }
-                        cont = 'y';
-                        system("cls");
-                        continue;
-                    }
-                }
-                fgetc(stdin);
-                if(n==2)
-                {
-                    while(cont=='y' || cont=='Y')
-                    {
                         n=0;
                         system("cls");
-                        printf("\n\t\t\t\t\t Welcome to Admin Pannel\n");
-                        printf("\t\t\t\t\t__________________________\n\n");
-                        printf("\t\t\t\t\t1.Create Admin pannel AC\n");
-                        printf("\t\t\t\t\t2.Login Into Admin Pannel\n");
-                        printf("\t\t\t\t\t3.Back\n");
-                        printf("\t\t\t\t\t4.Exit\n");
-                        printf("\t\t\t\t\t__________________________\n");
+                        printf("\t\t\t\t\t____________________________________\n\n");
+                        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                        printf("\t\t\t\t\t____________________________________\n\n");
+                        printf("\t\t\t\t\t  1.LOGIN MANAGEMENT AC\n");
+                        printf("\t\t\t\t\t  2.ADMIN PANEL\n");
+                        printf("\t\t\t\t\t  3.BACK\n");
+                        printf("\t\t\t\t\t  4.EXIT\n");
+                        printf("\t\t\t\t\t____________________________________\n\n");
                         printf("\t\t\t\t\tChoose an option: ");
                         scanf("%d",&n);
-                        //Create Admin panel AC
-                        //Create Admin panel AC
-                        if(n==1)
-                        {
-                            system("cls");
-                            printf("\t\t\t\t\tCreate Admin panel AC\n");
-                            printf("\t\t\t\t\t_______________________\n\n");
+                        // cont_loop(n);
 
-                            crecate_Admin_Ac(file,createFile,n);
-                            cont_loop(n);
-                        }
-                        //Login into admin AC
-                        //Login into admin AC
-                        if(n==2)
+                        if(n==1)
                         {
                             n=0;
                             system("cls");
-                            printf("\t\t\t\t\t  Login Into Admin Pannel\n");
-                            printf("\t\t\t\t\t___________________________\n\n");
-
+                            printf("\t\t\t\t\t____________________________________\n\n");
+                            printf("\t\t\t\t\t      LOGIN INTO MANAGEMENT AC\n");
+                            printf("\t\t\t\t\t____________________________________\n\n");
                             printf("\t\t\t\t\tEnter User Name: ");
                             scanf("%s",&login_userName);
-
                             strcpy(createFile,login_userName);
-                            file = fopen(strcat(createFile,".docx"),"r");
+                            file = fopen(strcat(createFile,".dat"),"r");
                             fread(&user,sizeof(struct userinfo),1,file);
                             fclose(file);
 
@@ -374,43 +335,238 @@ int main()
                                     while(cont=='y')
                                     {
                                         system("cls");
-                                        printf("\t\t\t\t\t________________________________________\n");
-                                        printf("\n\t\t\t\t\t      WELCOME TO ADMIN PANNEL \n");
-                                        printf("\t\t\t\t\t________________________________________\n\n");
+                                        printf("\t\t\t\t_____________________________________________________________\n\n");
+                                        printf("\t\t\t\t                WELCOME TO MANAGEMENT PANEL\n");
+                                        printf("\t\t\t\t_____________________________________________________________\n");
+                                        printf("\t\t\t\tManagement Holder: %s\n\n",user.name);
+                                        printf("\t\t\t\t--------------------                   --------------------\n");
+                                        printf("\t\t\t\t  1.USER INFO                            2.LOGIN USER AC\n");
+                                        printf("\t\t\t\t--------------------                   --------------------\n\n");
+                                        printf("\t\t\t\t--------------------                   --------------------\n");
+                                        printf("\t\t\t\t  3.USER APPLY                           4.CREATE USER AC\n");
+                                        printf("\t\t\t\t--------------------                   --------------------\n\n");
+                                        printf("\t\t\t\t--------------------                   --------------------\n");
+                                        printf("\t\t\t\t  5.MANAGEMENT INFO                      6.CHANGE PASSWORD\n");
+                                        printf("\t\t\t\t--------------------                   --------------------\n\n");
 
-                                        printf("\t\t\t\t\t1.CLIENT INFOEMATION\n");
-                                        printf("\t\t\t\t\t2.RECOVER CLIENT INFOEMATION\n\n");
-                                        printf("\t\t\t\t\t3.MANAGEMENT INFORMATION\n");
-                                        printf("\t\t\t\t\t4.RECOVER MANAGEMENT INFORMATION\n");
-                                        printf("\t\t\t\t\t5.CREATE MANAGEMENT AC\n\n");
-                                        printf("\t\t\t\t\t6.TOTAL BALANCE\n\n");
-                                        printf("\t\t\t\t\t7.CHANGE YOUR PASSWORD\n");
-                                        printf("\t\t\t\t\t8.Back\n");
-                                        printf("\t\t\t\t\t9.Exit\n");
-                                        printf("\t\t\t\t\t________________________________________\n\n");
-                                        printf("\t\t\t\t\tChoose an option: ");
+                                        printf("\t\t\t\t                        ----------\n");
+                                        printf("\t\t\t\t                         7.BACK\n");
+                                        printf("\t\t\t\t                        ----------\n\n");
+                                        printf("\t\t\t\t                        ----------\n");
+                                        printf("\t\t\t\t                         8.EXIT\n");
+                                        printf("\t\t\t\t                        ----------\n");
+                                        printf("\t\t\t\t_____________________________________________________________\n\n");
+                                        printf("\t\t\t\tChoose an option: ");
                                         scanf("%d",&n);
-                                        //fgetc(stdin);
-                                        if(n==5)
-                                        {
-                                            system("cls");
-                                            n=0;
-                                            printf("\t\t\t\t\t_______________________________\n");
-                                            printf("\n\t\t\t\t\t CREATE MANAGEMENT AC\n");
-                                            printf("\t\t\t\t\t_______________________________\n");
-
-                                            crecate_management_Ac(file,createFile,n);
-                                            cont_loop(n);
-                                        }
-                                        if(n==8)
+                                        if(n==7)
                                         {
                                             n=0;
                                             break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    system("cls");
+                                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAN\n");
+                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                    cont_loop(n);
+                                }
+                                //cont_loop(n);
+                            }
+                        }
+                        fgetc(stdin);
+                        if(n==2)
+                        {
+                            system("cls");
+                            n=100;
+                            if(n==00)
+                            {
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\t       GENERATE ADMIN PASSWORD\n");
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                pass_file = fopen("admin_pass.txt","w");
+                                printf("\t\t\t\t\tCreate Password  : ");
+                                fgets(user.pass_1,30,stdin);
+                                user.pass_1[strlen(user.pass_1)-1]=0;
+
+                                printf("\t\t\t\t\tReEnter Password : ");
+                                fgets(user.pass_2,30,stdin);
+                                user.pass_2[strlen(user.pass_2)-1]=0;
+                                fwrite(&user,sizeof(struct userinfo),1,pass_file);
+                                fclose(pass_file);
+
+                                system("cls");
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\tPassword Successfully Setup!\n");
+                                printf("\t\t\t\t\t      !!Warning!!\n");
+                                printf("\t\t\t\t\tStop Password generator after setup.\n\n");
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                cont_loop(n);
+                            }
+                            else
+                            {
+                                pass_file = fopen("admin_pass.txt","r");
+                                fread(&user,sizeof(struct userinfo),1,pass_file);
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\tEnter password: ");
+                                fgets(login_password,30,stdin);
+                                login_password[strlen(login_password)-1]=0;
+                                fclose(pass_file);
+                                if(!strcmp(user.pass_2,login_password))
+                                {
+
+                                    while(cont=='y' || cont=='Y')
+                                    {
+                                        n=0;
+                                        system("cls");
+                                        printf("\t\t\t\t\t____________________________________\n\n");
+                                        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                        printf("\t\t\t\t\t____________________________________\n\n");
+                                        printf("\t\t\t\t\t1.CREATE ADMIN AC\n");
+                                        printf("\t\t\t\t\t2.LOGIN ADMIN AC\n");
+                                        printf("\t\t\t\t\t3.BACK\n");
+                                        printf("\t\t\t\t\t4.EXIT\n");
+                                        printf("\t\t\t\t\t____________________________________\n");
+                                        printf("\t\t\t\t\tChoose an option: ");
+                                        scanf("%d",&n);
+                                        //Create Admin panel AC
+                                        //Create Admin panel AC
+                                        if(n==1)
+                                        {
+                                            system("cls");
+                                            printf("\t\t\t\t\t____________________________________\n\n");
+                                            printf("\t\t\t\t\t       CREATE ADMIN AC\n");
+                                            printf("\t\t\t\t\t____________________________________\n\n");
+
+                                            crecate_Admin_Ac(file,createFile,n);
+                                            cont_loop(n);
+                                        }
+                                        //Login into admin AC
+                                        //Login into admin AC
+                                        if(n==2)
+                                        {
+                                            n=0;
+                                            system("cls");
+                                            printf("\t\t\t\t\t____________________________________\n\n");
+                                            printf("\t\t\t\t\t       LOGIN INTO ADMIN AC\n");
+                                            printf("\t\t\t\t\t____________________________________\n\n");
+
+                                            printf("\t\t\t\t\tEnter User Name: ");
+                                            scanf("%s",&login_userName);
+
+                                            strcpy(createFile,login_userName);
+                                            file = fopen(strcat(createFile,".docx"),"r");
+                                            fread(&user,sizeof(struct userinfo),1,file);
+                                            fclose(file);
+
+                                            if(file==NULL)
+                                            {
+                                                printf("\n\t\t\t\t\tAccount Invalid\n\n");
+                                                cont_loop(n);
+                                            }
+                                            else
+                                            {
+                                                fgetc(stdin);
+                                                printf("\t\t\t\t\tEnter Password : ");
+                                                fgets(login_password,30,stdin);
+                                                login_password[strlen(login_password)-1]=0;
+                                                if(!strcmp(user.password,login_password))
+                                                {
+                                                    while(cont=='y' || cont=='Y')
+                                                    {
+                                                        n=0;
+                                                        system("cls");
+                                                        printf("\t\t\t\t_______________________________________________________________\n\n");
+                                                        printf("\t\t\t\t                   WELCOME TO ADMIN PANEL\n");
+                                                        printf("\t\t\t\t_______________________________________________________________\n");
+                                                        printf("\t\t\t\tAdmin Holder: %s\n\n",user.name);
+                                                        printf("\t\t\t\t--------------------                     ----------------------\n");
+                                                        printf("\t\t\t\t  1.TOTAL BALANCE                          2.STATEMENT\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n");
+                                                        printf("\t\t\t\t  3.CLIENT INFO                            4.UPDATE CLIENT INFO\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n");
+                                                        printf("\t\t\t\t  5.MANAGEMENT INFO                        6.UPDATE MANAGE. INFO\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n");
+                                                        printf("\t\t\t\t  7.CREATE MANAGE. AC                      8.CHANGE PASSWORD\n");
+                                                        printf("\t\t\t\t----------------------                   ----------------------\n\n");
+
+                                                        printf("\t\t\t\t                          ----------\n");
+                                                        printf("\t\t\t\t                           9.BACK\n");
+                                                        printf("\t\t\t\t                          ----------\n\n");
+                                                        printf("\t\t\t\t                          ----------\n");
+                                                        printf("\t\t\t\t                           10.EXIT\n");
+                                                        printf("\t\t\t\t                          ----------\n");
+                                                        printf("\t\t\t\t_______________________________________________________________\n\n");
+                                                        printf("\t\t\t\tChoose an option: ");
+                                                        scanf("%d",&n);
+                                                        if(n==7)
+                                                        {
+                                                            n=0;
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            printf("\n\t\t\t\t\t CREATE MANAGEMENT AC\n");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+
+                                                            crecate_management_Ac(file,createFile,n);
+                                                            cont_loop(n);
+                                                            continue;
+                                                        }
+                                                        if(n==9)
+                                                        {
+                                                            n=0;
+                                                            break;
+                                                        }
+                                                        if(n=10)
+                                                        {
+                                                            n=0;
+                                                            exit(1);
+                                                        }
+                                                        cont = 'y';
+                                                        system("cls");
+                                                        continue;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    system("cls");
+                                                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                                                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                    cont_loop(n);
+                                                }
+                                            }
+                                        }
+                                        if(n==3)
+                                        {
+                                            n=0;
+                                            break;
+                                        }
+                                        if(n==4)
+                                        {
+                                            n=0;
+                                            exit(0);
                                         }
                                         cont = 'y';
                                         system("cls");
                                         continue;
                                     }
+                                }
+                                else
+                                {
+                                    system("cls");
+                                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                    cont_loop(n);
                                 }
                             }
                         }
@@ -428,18 +584,14 @@ int main()
                         continue;
                     }
                 }
-                if(n==3)
+                else
                 {
-                    n=0;
-                    break;
+                    system("cls");
+                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                    printf("\t\t\t\t\t____________________________________\n\n");
+                    cont_loop(n);
                 }
-                if(n==4)
-                {
-                    exit(1);
-                }
-                cont = 'y';
-                system("cls");
-                continue;
             }
         }
         if(n==4)
@@ -450,4 +602,5 @@ int main()
         system("cls");
         continue;
     }
+    return 0;
 }
