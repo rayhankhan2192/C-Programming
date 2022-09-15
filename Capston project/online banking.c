@@ -14,6 +14,7 @@ struct userinfo
     char Re_enter_pass[30];
     char pass_1[30];
     char pass_2[30];
+    char login_pass[15];
 } user;
 void cont_loop(int n)
 {
@@ -104,6 +105,7 @@ void crecate_user_Ac(FILE *file,char createFile[30],int n)
     printf("\t\t\t\t\tEnter Gmail\t\t: ");
     fgets(user.gmail,30,stdin);
     user.gmail[strlen(user.gmail)-1] = 0;
+
 
     strcpy(createFile,user.phonenumber);
     file = fopen(strcat(createFile," "),"r");
@@ -265,7 +267,7 @@ int main()
     system("COLOR B");
     int n;
     struct userinfo user;
-    char login_password[30],login_userName[30];
+    char login_password[30],login_userName[30], login_user_ac[15];
     char createFile[30];
     char ch;
     int n1=00,n2=00;//n1=100 for management password generator && n2=200 admin password generator
@@ -297,10 +299,114 @@ int main()
         {
             n=0;
             system("cls");
-            printf("\t\t\t\t\t________________________________________\n\n");
-            printf("\t\t\t\t\t Upcoming features will available soon!\n\n");
-            printf("\t\t\t\t\t________________________________________\n\n");
-            cont_loop(n);
+            printf("\t\t\t\t\t____________________________________\n\n");
+            printf("\t\t\t\t\t        LOGIN INTO ACCOUNT\n");
+            printf("\t\t\t\t\t____________________________________\n");
+            printf("\n\t\t\t\t\tEnter AC Number:  ");
+            scanf("%s",&login_user_ac);
+
+            strcpy(createFile,login_user_ac);;
+            file = fopen(strcat(createFile," "),"r");
+            fread(&user,sizeof(struct userinfo),1,file);
+            if(file==NULL)
+            {
+                system("cls");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                printf("\t\t\t\t\t   GIVEN ACCOUNT NOT REGISTERED!\n");
+                printf("\t\t\t\t\t____________________________________\n\n");
+                cont_loop(n);
+            }
+            else
+            {
+                fgetc(stdin);
+                printf("\t\t\t\t\tEnter Password :  ");
+                fgets(user.login_pass,15,stdin);
+                user.login_pass[strlen(user.login_pass)-1] = 0;
+
+                if(!strcmp(user.password,user.login_pass))
+                {
+                    while(1)
+                    {
+                        system("cls");
+                        printf("\t\t\t\t\t____________________________________\n\n");
+                        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                        printf("\t\t\t\t\t____________________________________\n");
+                        printf("\t\t\t\t\tAC Holder Name: %s\n\n",user.name);
+                        printf("\t\t\t\t\t 1.GO TO TRANSACTION PAGE\n");
+                        printf("\t\t\t\t\t 2.CHANGE PASSWORD\n");
+                        printf("\t\t\t\t\t 3.YOUR DETAILS\n");
+                        printf("\t\t\t\t\t 4.BACK\n");
+                        printf("\t\t\t\t\t 5.EXIT\n");
+                        printf("\t\t\t\t\t____________________________________\n");
+                        printf("\t\t\t\t\tChoose an option: ");
+                        scanf("%d",&n);
+
+                        if(n==1)
+                        {
+                            while(1)
+                            {
+                                n=0;
+                                system("cls");
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\t       TRANSACTION PAGE\n");
+                                printf("\t\t\t\t\t____________________________________\n");
+                                printf("\t\t\t\t\tAC Holder Name: %s\n\n",user.name);
+                                printf("\t\t\t\t\t 1.CHECK BALANCE\n");
+                                printf("\t\t\t\t\t 2.WITHDRAW AMOUNT\n");
+                                printf("\t\t\t\t\t 3.TRANSFER AMOUNT\n");
+                                printf("\t\t\t\t\t 4.STATEMENT\n");
+                                printf("\t\t\t\t\t 5.BACK\n");
+                                printf("\t\t\t\t\t 6.EXIT\n");
+                                printf("\t\t\t\t\t____________________________________\n");
+                                printf("\t\t\t\t\tChoose an option: ");
+                                scanf("\t\t\t\t\t\t%d",&n);
+
+                                if(n==5)
+                                {
+                                    n=0;
+                                    break;
+                                }
+                                if(n==6)
+                                {
+                                    n=0;
+                                    exit(0);
+                                }
+                            }
+                        }
+                        if(n==3)
+                        {
+                            system("cls");
+                            printf("\t\t\t\t\t________________________________________\n\n");
+                            printf("\t\t\t\t\t            YOUR DETAILS\n");
+                            printf("\t\t\t\t\t________________________________________\n");
+                            printf("\n\t\t\t\t\tAC Holder\t: %s\n",user.name);
+                            printf("\t\t\t\t\tAC number\t: %s\n",user.phonenumber);
+                            printf("\t\t\t\t\tNID\t\t: %s\n",user.nid);
+                            printf("\t\t\t\t\tGmail AC\t: %s\n",user.gmail);
+                            printf("\t\t\t\t\t________________________________________\n");
+                            cont_loop(n);
+                        }
+                        if(n==4)
+                        {
+                            n=0;
+                            break;
+                        }
+                        if(n==5)
+                        {
+                            exit(0);
+                        }
+                    }
+                }
+                else
+                {
+                    system("cls");
+                    printf("\t\t\t\t\t____________________________________\n\n");
+                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                    printf("\t\t\t\t\t____________________________________\n\n");
+                    cont_loop(n);
+
+                }
+            }
         }
         //fgetc(stdin);
         if(n==3)
@@ -638,6 +744,7 @@ int main()
                         }
                         if(n==4)
                         {
+                            n=0;
                             exit(1);
                         }
                         system("cls");
