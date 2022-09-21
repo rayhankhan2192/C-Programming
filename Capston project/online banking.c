@@ -15,6 +15,7 @@ struct userinfo
     char pass_1[30];
     char pass_2[30];
     char login_pass[15];
+    float balance_;
 } user;
 void cont_loop(int n)
 {
@@ -266,10 +267,11 @@ int main()
 {
     system("COLOR B");
     int n;
-    struct userinfo user;
+    struct userinfo user,user_2nd;
     char login_password[30],login_userName[30], login_user_ac[15];
     char createFile[30];
     char ch;
+    float addamount;
     int n1=00,n2=00;//n1=100 for management password generator && n2=200 admin password generator
     FILE *file;
     FILE *pass_file;
@@ -308,6 +310,7 @@ int main()
             strcpy(createFile,login_user_ac);;
             file = fopen(strcat(createFile," "),"r");
             fread(&user,sizeof(struct userinfo),1,file);
+            fclose(file);
             if(file==NULL)
             {
                 system("cls");
@@ -360,6 +363,118 @@ int main()
                                 printf("\t\t\t\t\t____________________________________\n");
                                 printf("\t\t\t\t\tChoose an option: ");
                                 scanf("\t\t\t\t\t\t%d",&n);
+
+                                if(n==1)
+                                {
+                                    system("cls");
+                                    printf("\n\t\t\t\t\tCurrent Balance: %.2f $\n\n",user.balance_);
+                                    cont_loop(n);
+                                }
+
+                                //withdraw amount
+                                //withdraw amount
+                                //withdraw amount
+                                if(n==2)
+                                {
+                                    n=0;
+                                    system("cls");
+                                    printf("\t\t\t\t\tEnter the amount: ");
+                                    scanf("%f",&addamount);
+                                    if(addamount > user.balance_)
+                                    {
+                                        printf("\t\t\t\t\tNot enough balance\n\n");
+                                        cont_loop(n);
+                                    }
+                                    else
+                                    {
+                                        if(fread!=NULL)
+                                        {
+                                            printf("\t\t\t\t\tDo you want to confirm:\n");
+                                            printf("\t\t\t\t\t1.YES\n 2.NO\n");
+                                            printf("\t\t\t\t\tChoose an option: ");
+                                            scanf("%d",&n);
+
+                                            if(n==1)
+                                            {
+                                                user.balance_ -= addamount;
+                                                file = fopen(createFile,"w");
+                                                fwrite(&user,sizeof(struct userinfo),1,file);
+                                                fclose(file);
+                                                system("cls");
+                                                printf("\t\t\t\t\tSuccessfully Withdraw\n");
+                                                cont_loop(n);
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                //transfer amount
+                                //transfer amount
+                                if(n==3)
+                                {
+                                    char transfer_AC[15];
+                                    n=0;
+                                    system("cls");
+                                    printf("\n\t\t\t\t\tEnter the AC Number: ");
+                                    scanf("%s",&transfer_AC);
+
+                                    strcpy(createFile, transfer_AC);
+                                    file = fopen(strcat(createFile," "),"r");
+                                    if(file==NULL)
+                                    {
+                                        printf("\n\t\t\t\t\tGiven AC not registered\n\n");
+                                        cont_loop(n);
+                                    }
+                                    else
+                                    {
+                                        printf("\n\t\t\t\t\tEnter the amount: ");
+                                        scanf("%f",&addamount);
+
+                                        fread(&user_2nd,sizeof(struct userinfo),1,file);
+                                        fclose(file);
+                                        if(addamount > user.balance_)
+                                        {
+                                            printf("\t\t\t\t\tNot enough balance\n\n");
+                                            cont_loop(n);
+                                        }
+                                        else
+                                        {
+                                            printf("\t\t\t\t\tDo you want to confirm:\n");
+                                            printf("\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
+                                            printf("\t\t\t\t\tChoose an option: ");
+                                            scanf("%d",&n);
+
+                                            if(n==1)
+                                            {
+                                                user_2nd.balance_+=addamount;
+                                                file = fopen(createFile,"w");
+                                                fwrite(&user_2nd,sizeof(struct userinfo),1,file);
+                                                fclose(file);
+                                                if(fwrite!=NULL)
+                                                {
+                                                    printf("\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n",addamount,transfer_AC);
+
+                                                    strcpy(createFile, user.phonenumber);
+                                                    user.balance_-=addamount;
+                                                    file = fopen(strcat(createFile," "),"w");
+                                                    fwrite(&user,sizeof(struct userinfo),1,file);
+                                                    fclose(file);
+                                                    cont_loop(n);
+
+                                                }
+                                                else
+                                                {
+                                                    printf("\n\t\t\t\t\tTransaction failed!\n\n");
+                                                    cont_loop(n);
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+
+                                }
 
                                 if(n==5)
                                 {
@@ -523,6 +638,258 @@ int main()
                                         printf("\t\t\t\tChoose an option: ");
                                         scanf("%d",&n);
 
+                                        if(n==2)
+                                        {
+                                            n=0;
+                                            system("cls");
+                                            printf("\t\t\t\t\t____________________________________\n\n");
+                                            printf("\t\t\t\t\t       LOGIN INTO USER ACCOUNT\n");
+                                            printf("\t\t\t\t\t____________________________________\n");
+                                            printf("\n\t\t\t\t\tEnter AC Number:  ");
+                                            scanf("%s",&login_user_ac);
+
+                                            strcpy(createFile,login_user_ac);;
+                                            file = fopen(strcat(createFile," "),"r");
+                                            fread(&user,sizeof(struct userinfo),1,file);
+                                            fclose(file);
+                                            if(file==NULL)
+                                            {
+                                                system("cls");
+                                                printf("\t\t\t\t\t____________________________________\n\n");
+                                                printf("\t\t\t\t\t   GIVEN ACCOUNT NOT REGISTERED!\n");
+                                                printf("\t\t\t\t\t____________________________________\n\n");
+                                                cont_loop(n);
+                                            }
+                                            else
+                                            {
+                                                //fgetc(stdin);
+                                                //printf("\t\t\t\t\tEnter Password :  ");
+                                                //fgets(user.login_pass,15,stdin);
+                                                //user.login_pass[strlen(user.login_pass)-1] = 0;
+
+                                                if(!strcmp(user.password,user.login_pass))
+                                                {
+                                                    while(1)
+                                                    {
+                                                        system("cls");
+                                                        printf("\t\t\t\t\t____________________________________\n\n");
+                                                        printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                                        printf("\t\t\t\t\t____________________________________\n");
+                                                        printf("\t\t\t\t\tAC Holder Name: %s\n\n",user.name);
+                                                        printf("\t\t\t\t\t 1.GO TO TRANSACTION PAGE\n");
+                                                        printf("\t\t\t\t\t 2.CHANGE PASSWORD\n");
+                                                        printf("\t\t\t\t\t 3.YOUR DETAILS\n");
+                                                        printf("\t\t\t\t\t 4.BACK\n");
+                                                        printf("\t\t\t\t\t 5.EXIT\n");
+                                                        printf("\t\t\t\t\t____________________________________\n");
+                                                        printf("\t\t\t\t\tChoose an option: ");
+                                                        scanf("%d",&n);
+
+                                                        if(n==1)
+                                                        {
+                                                            while(1)
+                                                            {
+                                                                n=0;
+                                                                system("cls");
+                                                                printf("\t\t\t\t\t____________________________________\n\n");
+                                                                printf("\t\t\t\t\t       TRANSACTION PAGE\n");
+                                                                printf("\t\t\t\t\t____________________________________\n");
+                                                                printf("\t\t\t\t\tAC Holder Name: %s\n\n",user.name);
+                                                                printf("\t\t\t\t\t 1.CHECK BALANCE\n");
+                                                                printf("\t\t\t\t\t 2.ADD AMOUNT\n");
+                                                                printf("\t\t\t\t\t 3.WITHDRAW AMOUNT\n");
+                                                                printf("\t\t\t\t\t 4.TRANSFER AMOUNT\n");
+                                                                printf("\t\t\t\t\t 5.STATEMENT\n");
+                                                                printf("\t\t\t\t\t 6.BACK\n");
+                                                                printf("\t\t\t\t\t 7.EXIT\n");
+                                                                printf("\t\t\t\t\t____________________________________\n");
+                                                                printf("\t\t\t\t\tChoose an option: ");
+                                                                scanf("\t\t\t\t\t\t%d",&n);
+
+                                                                if(n==1)
+                                                                {
+                                                                    system("cls");
+                                                                    printf("\n\t\t\t\t\tCurrent Balance: %.2f $\n\n",user.balance_);
+                                                                    cont_loop(n);
+                                                                }
+                                                                //add amount
+                                                                //add amount
+                                                                if(n==2)
+                                                                {
+                                                                    n=0;
+                                                                    system("cls");
+                                                                    printf("\t\t\t\t\tEnter the amount: ");
+                                                                    scanf("%f",&addamount);
+
+                                                                    if(fread!=NULL)
+                                                                    {
+                                                                        printf("\t\t\t\t\tDo you want to confirm:\n");
+                                                                        printf("\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
+                                                                        printf("\t\t\t\t\tChoose an option: ");
+                                                                        scanf("%d",&n);
+
+                                                                        if(n==1)
+                                                                        {
+                                                                            user.balance_ += addamount;
+                                                                            file = fopen(createFile,"w");
+                                                                            fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                            fclose(file);
+                                                                            system("cls");
+                                                                            printf("\t\t\t\t\tSuccessfully Deposit\n");
+                                                                            cont_loop(n);
+                                                                        }
+                                                                    }
+                                                                }
+                                                                //withdraw amount
+                                                                //withdraw amount
+                                                                //withdraw amount
+                                                                if(n==3)
+                                                                {
+                                                                    n=0;
+                                                                    system("cls");
+                                                                    printf("\t\t\t\t\tEnter the amount: ");
+                                                                    scanf("%f",&addamount);
+                                                                    if(addamount > user.balance_)
+                                                                    {
+                                                                        printf("\t\t\t\t\tNot enough balance\n\n");
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if(fread!=NULL)
+                                                                        {
+                                                                            printf("\t\t\t\t\tDo you want to confirm:\n");
+                                                                            printf("\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
+                                                                            printf("\t\t\t\t\tChoose an option: ");
+                                                                            scanf("%d",&n);
+
+                                                                            if(n==1)
+                                                                            {
+                                                                                user.balance_ -= addamount;
+                                                                                file = fopen(createFile,"w");
+                                                                                fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                                fclose(file);
+                                                                                system("cls");
+                                                                                printf("\t\t\t\t\tSuccessfully Withdraw\n");
+                                                                                cont_loop(n);
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                if(n==4)
+                                                                {
+                                                                    char transfer_AC[15];
+                                                                    n=0;
+                                                                    system("cls");
+                                                                    printf("\n\t\t\t\t\tEnter the AC Number: ");
+                                                                    scanf("%s",&transfer_AC);
+
+                                                                    strcpy(createFile, transfer_AC);
+                                                                    file = fopen(strcat(createFile," "),"r");
+                                                                    fclose(file);
+                                                                    if(file==NULL)
+                                                                    {
+                                                                        printf("\n\t\t\t\t\tGiven AC not registered\n\n");
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        printf("\n\t\t\t\t\tEnter the amount: ");
+                                                                        scanf("%f",&addamount);
+
+                                                                        fread(&user,sizeof(struct userinfo),1,file);
+                                                                        fclose(file);
+                                                                        if(addamount > user.balance_)
+                                                                        {
+                                                                            printf("\t\t\t\t\tNot enough balance\n\n");
+                                                                            cont_loop(n);
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            printf("\t\t\t\t\tDo you want to confirm:\n");
+                                                                            printf("\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
+                                                                            printf("\t\t\t\t\tChoose an option: ");
+                                                                            scanf("%d",&n);
+
+                                                                            if(n==1)
+                                                                            {
+                                                                                user_2nd.balance_+=addamount;
+                                                                                file = fopen(createFile,"w");
+                                                                                fwrite(&user_2nd,sizeof(struct userinfo),1,file);
+                                                                                fclose(file);
+                                                                                if(fwrite!=NULL)
+                                                                                {
+                                                                                    printf("\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n",addamount,transfer_AC);
+
+                                                                                    strcpy(createFile, user.phonenumber);
+                                                                                    user.balance_-=addamount;
+                                                                                    file = fopen(strcat(createFile," "),"w");
+                                                                                    fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                                    fclose(file);
+                                                                                    cont_loop(n);
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    printf("\n\t\t\t\t\tTransaction failed!\n\n");
+                                                                                    cont_loop(n);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                }
+
+                                                                if(n==6)
+                                                                {
+                                                                    n=0;
+                                                                    break;
+                                                                }
+                                                                if(n==7)
+                                                                {
+                                                                    n=0;
+                                                                    exit(0);
+                                                                }
+                                                            }
+                                                        }
+                                                        if(n==3)
+                                                        {
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t________________________________________\n\n");
+                                                            printf("\t\t\t\t\t            YOUR DETAILS\n");
+                                                            printf("\t\t\t\t\t________________________________________\n");
+                                                            printf("\n\t\t\t\t\tAC Holder\t: %s\n",user.name);
+                                                            printf("\t\t\t\t\tAC number\t: %s\n",user.phonenumber);
+                                                            printf("\t\t\t\t\tNID\t\t: %s\n",user.nid);
+                                                            printf("\t\t\t\t\tGmail AC\t: %s\n",user.gmail);
+                                                            printf("\t\t\t\t\t________________________________________\n");
+                                                            cont_loop(n);
+                                                        }
+                                                        if(n==4)
+                                                        {
+                                                            n=0;
+                                                            break;
+                                                        }
+                                                        if(n==5)
+                                                        {
+                                                            exit(0);
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    system("cls");
+                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                    cont_loop(n);
+
+                                                }
+                                            }
+                                        }
+
                                         if(n==4)
                                         {
                                             n=0;
@@ -540,7 +907,7 @@ int main()
                                 else
                                 {
                                     system("cls");
-                                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t____________________________________\n\n");
                                     printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAN\n");
                                     printf("\t\t\t\t\t____________________________________\n\n");
                                     cont_loop(n);
@@ -696,10 +1063,10 @@ int main()
                                                             n=0;
                                                             break;
                                                         }
-                                                        if(n=10)
+                                                        if(n==10)
                                                         {
                                                             n=0;
-                                                            exit(1);
+                                                            exit(0);
                                                         }
                                                         system("cls");
                                                     }
@@ -707,7 +1074,7 @@ int main()
                                                 else
                                                 {
                                                     system("cls");
-                                                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                                                    printf("\t\t\t\t\t____________________________________\n\n");
                                                     printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
                                                     printf("\t\t\t\t\t____________________________________\n\n");
                                                     cont_loop(n);
@@ -730,7 +1097,7 @@ int main()
                                 else
                                 {
                                     system("cls");
-                                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t____________________________________\n\n");
                                     printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
                                     printf("\t\t\t\t\t____________________________________\n\n");
                                     cont_loop(n);
@@ -753,7 +1120,7 @@ int main()
                 else
                 {
                     system("cls");
-                    printf("\N\t\t\t\t\t____________________________________\n\n");
+                    printf("\t\t\t\t\t____________________________________\n\n");
                     printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
                     printf("\t\t\t\t\t____________________________________\n\n");
                     cont_loop(n);
