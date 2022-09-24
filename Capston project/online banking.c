@@ -326,7 +326,16 @@ int main()
                 fgets(user.login_pass,15,stdin);
                 user.login_pass[strlen(user.login_pass)-1] = 0;
 
-                if(!strcmp(user.password,user.login_pass))
+                if(strcmp(user.password,user.login_pass))
+                {
+                    system("cls");
+                    printf("\t\t\t\t\t____________________________________\n\n");
+                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                    printf("\t\t\t\t\t____________________________________\n\n");
+                    cont_loop(n);
+
+                }
+                else
                 {
                     while(1)
                     {
@@ -511,14 +520,6 @@ int main()
                             exit(0);
                         }
                     }
-                }
-                else
-                {
-                    system("cls");
-                    printf("\t\t\t\t\t____________________________________\n\n");
-                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
-                    printf("\t\t\t\t\t____________________________________\n\n");
-                    cont_loop(n);
 
                 }
             }
@@ -669,6 +670,15 @@ int main()
 
                                                 if(!strcmp(user.password,user.login_pass))
                                                 {
+                                                    system("cls");
+                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
+                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                    cont_loop(n);
+
+                                                }
+                                                else
+                                                {
                                                     while(1)
                                                     {
                                                         system("cls");
@@ -788,7 +798,6 @@ int main()
 
                                                                     strcpy(createFile, transfer_AC);
                                                                     file = fopen(strcat(createFile," "),"r");
-                                                                    fclose(file);
                                                                     if(file==NULL)
                                                                     {
                                                                         printf("\n\t\t\t\t\tGiven AC not registered\n\n");
@@ -799,7 +808,7 @@ int main()
                                                                         printf("\n\t\t\t\t\tEnter the amount: ");
                                                                         scanf("%f",&addamount);
 
-                                                                        fread(&user,sizeof(struct userinfo),1,file);
+                                                                        fread(&user_2nd,sizeof(struct userinfo),1,file);
                                                                         fclose(file);
                                                                         if(addamount > user.balance_)
                                                                         {
@@ -877,14 +886,6 @@ int main()
                                                             exit(0);
                                                         }
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    system("cls");
-                                                    printf("\t\t\t\t\t____________________________________\n\n");
-                                                    printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
-                                                    printf("\t\t\t\t\t____________________________________\n\n");
-                                                    cont_loop(n);
 
                                                 }
                                             }
