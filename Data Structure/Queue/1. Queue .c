@@ -30,7 +30,7 @@ void enqueue(int value){
 }
 
 int dequeue(){
-    if(empty == 0){
+    if(empty(){
         printf("Sorry! Queue is empty.\n");
         return -1;
     }
