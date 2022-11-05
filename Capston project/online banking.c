@@ -1,19 +1,20 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<error.h>
 struct userinfo
 {
     char name[30];
+    char user_name[20];
     char phonenumber[15];
     char nid[20];
     char gmail[30];
-    char address[50];
-    char date[10];
-    char user_name[20];
     char password[30];
     char Re_enter_pass[30];
+    char address[50];
     char pass_1[30];
     char pass_2[30];
+    char date[10];
     char login_pass[15];
     float balance_;
 } user;
@@ -91,19 +92,19 @@ void crecate_user_Ac(FILE *file,char createFile[30],int n)
 {
     fgetc(stdin);
 
-    printf("\t\t\t\t\tEnter Name\t\t: ");
+    printf("\t\t\t\t\tEnter Name\t : ");
     fgets(user.name,30,stdin);
     user.name[strlen(user.name)-1]=0;
 
-    printf("\t\t\t\t\tEnter Number\t\t: ");
+    printf("\t\t\t\t\tEnter Number\t : ");
     fgets(user.phonenumber,15,stdin);
     user.phonenumber[strlen(user.phonenumber)-1] = 0;
 
-    printf("\t\t\t\t\tEnter NID\t\t: ");
+    printf("\t\t\t\t\tEnter NID\t : ");
     fgets(user.nid,20,stdin);
     user.nid[strlen(user.nid)-1] = 0;
 
-    printf("\t\t\t\t\tEnter Gmail\t\t: ");
+    printf("\t\t\t\t\tEnter Gmail\t : ");
     fgets(user.gmail,30,stdin);
     user.gmail[strlen(user.gmail)-1] = 0;
 
@@ -118,11 +119,11 @@ void crecate_user_Ac(FILE *file,char createFile[30],int n)
     }
     else
     {
-        printf("\t\t\t\t\tCreate Password\t\t: ");
+        printf("\t\t\t\t\tCreate Password\t : ");
         fgets(user.password,30,stdin);
         user.password[strlen(user.password)-1]=0;
 
-        printf("\t\t\t\t\tReEnter Password\t: ");
+        printf("\t\t\t\t\tReEnter Password : ");
         fgets(user.Re_enter_pass,30,stdin);
         user.Re_enter_pass[strlen(user.Re_enter_pass)-1]=0;
 
@@ -234,7 +235,7 @@ void crecate_management_Ac(FILE *file,char createFile[30],int n)
     fclose(file);
     if(file!=NULL)
     {
-        printf("\t\t\t\t\tUsername taken before! Try again\n\n");
+        printf("\t\t\t\t\tUserName taken before! Try again\n\n");
     }
     else
     {
@@ -270,7 +271,8 @@ int main()
     struct userinfo user,user_2nd;
     char login_password[30],login_userName[30], login_user_ac[15];
     char createFile[30];
-    char ch;
+    char ch,remove_file[15];
+    char update_info[30];
     float addamount;
     int n1=00,n2=00;//n1=100 for management password generator && n2=200 admin password generator
     FILE *file;
@@ -376,7 +378,10 @@ int main()
                                 if(n==1)
                                 {
                                     system("cls");
-                                    printf("\n\t\t\t\t\tCurrent Balance: %.2f $\n\n",user.balance_);
+                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                    printf("\t\t\t\t\t____________________________________\n");
+                                    printf("\n\t\t\t\t\t Current Balance: %.2f $\n\n",user.balance_);
                                     cont_loop(n);
                                 }
 
@@ -387,6 +392,9 @@ int main()
                                 {
                                     n=0;
                                     system("cls");
+                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                    printf("\t\t\t\t\t____________________________________\n");
                                     printf("\t\t\t\t\tEnter the amount: ");
                                     scanf("%f",&addamount);
                                     if(addamount > user.balance_)
@@ -399,7 +407,7 @@ int main()
                                         if(fread!=NULL)
                                         {
                                             printf("\t\t\t\t\tDo you want to confirm:\n");
-                                            printf("\t\t\t\t\t1.YES\n 2.NO\n");
+                                            printf("\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
                                             printf("\t\t\t\t\tChoose an option: ");
                                             scanf("%d",&n);
 
@@ -410,7 +418,7 @@ int main()
                                                 fwrite(&user,sizeof(struct userinfo),1,file);
                                                 fclose(file);
                                                 system("cls");
-                                                printf("\t\t\t\t\tSuccessfully Withdraw\n");
+                                                printf("\t\t\t\t\t Successfully Withdraw\n");
                                                 cont_loop(n);
                                             }
 
@@ -425,6 +433,9 @@ int main()
                                     char transfer_AC[15];
                                     n=0;
                                     system("cls");
+                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                    printf("\t\t\t\t\t____________________________________\n");
                                     printf("\n\t\t\t\t\tEnter the AC Number: ");
                                     scanf("%s",&transfer_AC);
 
@@ -480,9 +491,6 @@ int main()
                                             }
                                         }
                                     }
-
-
-
                                 }
 
                                 if(n==5)
@@ -500,14 +508,15 @@ int main()
                         if(n==3)
                         {
                             system("cls");
-                            printf("\t\t\t\t\t________________________________________\n\n");
-                            printf("\t\t\t\t\t            YOUR DETAILS\n");
-                            printf("\t\t\t\t\t________________________________________\n");
-                            printf("\n\t\t\t\t\tAC Holder\t: %s\n",user.name);
-                            printf("\t\t\t\t\tAC number\t: %s\n",user.phonenumber);
-                            printf("\t\t\t\t\tNID\t\t: %s\n",user.nid);
-                            printf("\t\t\t\t\tGmail AC\t: %s\n",user.gmail);
-                            printf("\t\t\t\t\t________________________________________\n");
+                            printf("\t\t\t\t\t______________________________________________\n\n");
+                            printf("\t\t\t\t\t                YOUR DETAILS\n");
+                            printf("\t\t\t\t\t______________________________________________\n\n");
+                            printf("\t\t\t\t\tAC Holder\t: %s\n",user.name);
+                            printf("\t\t\t\t\tAC Number\t: %s\n",user.phonenumber);
+                            printf("\t\t\t\t\tAC NID\t\t: %s\n",user.nid);
+                            printf("\t\t\t\t\tAC Gmail\t: %s\n",user.gmail);
+                            printf("\t\t\t\t\tAddress \t: \n");
+                            printf("\t\t\t\t\t______________________________________________\n\n");
                             cont_loop(n);
                         }
                         if(n==4)
@@ -601,6 +610,9 @@ int main()
 
                             if(file==NULL)
                             {
+                                printf("\t\t\t\t\t____________________________________\n\n");
+                                printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                printf("\t\t\t\t\t____________________________________\n");
                                 printf("\n\t\t\t\t\tAccount Invalid\n\n");
                                 cont_loop(n);
                             }
@@ -650,7 +662,7 @@ int main()
                                             scanf("%s",&login_user_ac);
 
                                             strcpy(createFile,login_user_ac);;
-                                            file = fopen(strcat(createFile," "),"r");
+                                            file = fopen(strcat(createFile," "),"r+");
                                             fread(&user,sizeof(struct userinfo),1,file);
                                             fclose(file);
                                             if(file==NULL)
@@ -668,14 +680,15 @@ int main()
                                                 //fgets(user.login_pass,15,stdin);
                                                 //user.login_pass[strlen(user.login_pass)-1] = 0;
 
-                                                if(!strcmp(user.password,user.login_pass))
+                                                if(strcmp(user.password,user.Re_enter_pass))
+                                                    /*for open pass system just open all function below else && change the variable
+                                                    Re_enter_pass to user.login_pass in if condition.*/
                                                 {
                                                     system("cls");
                                                     printf("\t\t\t\t\t____________________________________\n\n");
                                                     printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAIN\n");
                                                     printf("\t\t\t\t\t____________________________________\n\n");
                                                     cont_loop(n);
-
                                                 }
                                                 else
                                                 {
@@ -728,6 +741,9 @@ int main()
                                                                 {
                                                                     n=0;
                                                                     system("cls");
+                                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                                                    printf("\t\t\t\t\t____________________________________\n");
                                                                     printf("\t\t\t\t\tEnter the amount: ");
                                                                     scanf("%f",&addamount);
 
@@ -757,6 +773,9 @@ int main()
                                                                 {
                                                                     n=0;
                                                                     system("cls");
+                                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                                                    printf("\t\t\t\t\t____________________________________\n");
                                                                     printf("\t\t\t\t\tEnter the amount: ");
                                                                     scanf("%f",&addamount);
                                                                     if(addamount > user.balance_)
@@ -779,11 +798,9 @@ int main()
                                                                                 file = fopen(createFile,"w");
                                                                                 fwrite(&user,sizeof(struct userinfo),1,file);
                                                                                 fclose(file);
-                                                                                system("cls");
                                                                                 printf("\t\t\t\t\tSuccessfully Withdraw\n");
                                                                                 cont_loop(n);
                                                                             }
-
                                                                         }
                                                                     }
                                                                 }
@@ -793,6 +810,9 @@ int main()
                                                                     char transfer_AC[15];
                                                                     n=0;
                                                                     system("cls");
+                                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                                                    printf("\t\t\t\t\t____________________________________\n");
                                                                     printf("\n\t\t\t\t\tEnter the AC Number: ");
                                                                     scanf("%s",&transfer_AC);
 
@@ -821,7 +841,6 @@ int main()
                                                                             printf("\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
                                                                             printf("\t\t\t\t\tChoose an option: ");
                                                                             scanf("%d",&n);
-
                                                                             if(n==1)
                                                                             {
                                                                                 user_2nd.balance_+=addamount;
@@ -831,7 +850,6 @@ int main()
                                                                                 if(fwrite!=NULL)
                                                                                 {
                                                                                     printf("\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n",addamount,transfer_AC);
-
                                                                                     strcpy(createFile, user.phonenumber);
                                                                                     user.balance_-=addamount;
                                                                                     file = fopen(strcat(createFile," "),"w");
@@ -848,9 +866,7 @@ int main()
                                                                             }
                                                                         }
                                                                     }
-
                                                                 }
-
                                                                 if(n==6)
                                                                 {
                                                                     n=0;
@@ -895,6 +911,10 @@ int main()
                                         {
                                             n=0;
                                             system("cls");
+                                            printf("\t\t\t\t\t_______________________________\n");
+                                            printf("\n\t\t\t\t\t     CREATE USER AC\n");
+                                            printf("\t\t\t\t\t_______________________________\n");
+
                                             crecate_user_Ac(file,createFile,n);
                                             cont_loop(n);
                                         }
@@ -908,7 +928,7 @@ int main()
                                 else
                                 {
                                     system("cls");
-                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                    printf("\t\t\t\t\t____________________________________\n");
                                     printf("\t\t\t\t\t       WRONG PASSWORD! TRY AGAN\n");
                                     printf("\t\t\t\t\t____________________________________\n\n");
                                     cont_loop(n);
@@ -1047,6 +1067,306 @@ int main()
                                                         printf("\t\t\t\t_______________________________________________________________\n\n");
                                                         printf("\t\t\t\tChoose an option: ");
                                                         scanf("%d",&n);
+
+                                                        if(n==3)
+                                                        {
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            printf("\n\t\t\t\t\t   CLIENT INFORMATIION\n");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            printf("\n\t\t\t\t\tEnter AC number: ");
+                                                            scanf("%s",&login_user_ac);
+                                                            strcpy(createFile,login_user_ac);
+                                                            file = fopen(strcat(createFile," "),"r");
+                                                            fread(&user,sizeof(struct userinfo),1,file);
+                                                            fclose(file);
+                                                            if(file==NULL)
+                                                            {
+                                                                printf("\n\t\t\t\t\tAccount Invalid\n");
+                                                            }
+                                                            else
+                                                            {
+                                                                system("cls");
+                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                printf("\n\t\t\t\t\t       CLIENT INFORMATIION\n");
+                                                                printf("\t\t\t\t\t_______________________________________\n");
+
+                                                                printf("\t\t\t\t\tTotal Balance : $ %.2f\n\n",user.balance_);
+                                                                printf("\t\t\t\t\tAC Name       : %s\n",user.name);
+                                                                printf("\t\t\t\t\tAC Number     : %s\n",user.phonenumber);
+                                                                printf("\t\t\t\t\tNID Number    : %s\n",user.nid);
+                                                                printf("\t\t\t\t\tAC Gmail      : %s\n\n",user.gmail);
+                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                            }
+                                                            cont_loop(n);
+                                                        }
+                                                        if(n==4)
+                                                        {
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t_______________________________________\n");
+                                                            printf("\n\t\t\t\t\t    UPDATE CLIENT INFORMATIION\n");
+                                                            printf("\t\t\t\t\t_______________________________________\n");
+                                                            printf("\n\t\t\t\t\tEnter AC number: ");
+                                                            scanf("%s",&login_user_ac);
+                                                            strcpy(createFile,login_user_ac);
+                                                            file = fopen(strcat(createFile," "),"r");
+                                                            fread(&user,sizeof(struct userinfo),1,file);
+                                                            fclose(file);
+                                                            if(file==NULL)
+                                                            {
+                                                                printf("\n\t\t\t\t\tAccount Invalid\n");
+                                                            }
+                                                            else
+                                                            {
+                                                                while(1)
+                                                                {
+                                                                    system("cls");
+                                                                    printf("\t\t\t\t\t_______________________________________\n");
+                                                                    printf("\n\t\t\t\t\t    UPDATE CLIENT INFORMATIION\n");
+                                                                    printf("\t\t\t\t\t_______________________________________\n");
+                                                                    printf("\t\t\t\t\tAC Name: %s\n\n",user.name);
+
+                                                                    printf("\t\t\t\t\t 1.Name\n");
+                                                                    printf("\t\t\t\t\t 2.Gmail\n");
+                                                                    printf("\t\t\t\t\t 3.NID\n");
+                                                                    printf("\t\t\t\t\t 4.Number\n");
+                                                                    printf("\t\t\t\t\t 5.Address\n");
+                                                                    printf("\t\t\t\t\t 6.Check Updated\n\n");
+                                                                    printf("\t\t\t\t\t 7.Back\n");
+                                                                    printf("\t\t\t\t\t 8.Exit\n");
+                                                                    printf("\t\t\t\t\t_______________________________________\n");
+                                                                    printf("\t\t\t\t\tChoose an option: ");
+                                                                    scanf("%d",&n);
+                                                                    fgetc(stdin);
+                                                                    if(n==1)
+                                                                    {
+                                                                        n=0;
+                                                                        system("cls");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\n\t\t\t\t\t    UPDATE CLIENT INFORMATIION\n");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\t\t\t\t\tAC Name: %s\n\n",user.name);
+                                                                        printf("\t\t\t\t\tPresent Name  : %s\n\n",user.name);
+                                                                        printf("\t\t\t\t\tEnter New Name: ");
+                                                                        fgets(update_info,30,stdin);
+                                                                        update_info[strlen(update_info)-1]=0;
+                                                                        printf("\t\t\t\t\tConfirm Submission: ");
+                                                                        printf("\n\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n\t\t\t\t\t");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        scanf("%d",&n);
+                                                                        if(n==1)
+                                                                        {
+                                                                            n=0;
+                                                                            strcpy(user.name,update_info);
+                                                                            file = fopen(strcat(createFile," "),"w");
+                                                                            fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                            fclose(file);
+                                                                            if(fwrite!=NULL)
+                                                                            {
+                                                                                printf("\t\t\t\t\tSuccessfully Update name!\n\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                printf("\t\t\t\t\tSomething went wrong! Try again\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                        }
+                                                                        if(n==2)
+                                                                        {
+                                                                            n=0;
+
+                                                                            printf("\t\t\t\t\tSuccessfully canceled.\n");
+                                                                            printf("\t\t\t\t\t_______________________________________\n");
+                                                                        }
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    if(n==2)
+                                                                    {
+                                                                        system("cls");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\n\t\t\t\t\t    UPDATE CLIENT INFORMATIION\n");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\t\t\t\t\tAC Name: %s\n\n",user.name);
+                                                                        printf("\t\t\t\t\tPresent Gmail: %s\n\n",user.gmail);
+                                                                        printf("\t\t\t\t\tEnter new Gmail: ");
+                                                                        fgets(update_info,30,stdin);
+                                                                        update_info[strlen(update_info)-1]=0;
+                                                                        printf("\t\t\t\t\tConfirm Submission: ");
+                                                                        printf("\n\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
+                                                                        scanf("%d",&n);
+                                                                        if(n==1)
+                                                                        {
+                                                                            n=0;
+                                                                            strcpy(user.gmail,update_info);
+                                                                            file = fopen(strcat(createFile," "),"w");
+                                                                            fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                            fclose(file);
+                                                                            if(fwrite!=NULL)
+                                                                            {
+                                                                                printf("\t\t\t\t\tSuccessfully Update name!\n\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                printf("\t\t\t\t\tSomething went wrong! Try again\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                        }
+                                                                        if(n==2)
+                                                                        {
+                                                                            n=0;
+                                                                            printf("\t\t\t\t\tSuccessfully canceled.\n");
+                                                                            printf("\t\t\t\t\t_______________________________________\n");
+                                                                        }
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    if(n==3)
+                                                                    {
+                                                                        n=0;
+                                                                        system("cls");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\n\t\t\t\t\t    UPDATE CLIENT INFORMATIION\n");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\t\t\t\t\tAC Name: %s\n\n",user.name);
+                                                                        printf("\t\t\t\t\tPresent NID    : %s\n\n",user.nid);
+                                                                        printf("\t\t\t\t\tEnter new NID  : ");
+                                                                        fgets(update_info,30,stdin);
+                                                                        update_info[strlen(update_info)-1]=0;
+                                                                        printf("\t\t\t\t\tConfirm Submission: ");
+                                                                        printf("\n\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n");
+                                                                        scanf("%d",&n);
+                                                                        if(n==1)
+                                                                        {
+                                                                            n=0;
+                                                                            strcpy(user.nid,update_info);
+                                                                            file = fopen(strcat(createFile," "),"w");
+                                                                            fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                            fclose(file);
+                                                                            if(fwrite!=NULL)
+                                                                            {
+                                                                                printf("\t\t\t\t\tSuccessfully Update Gmail!\n\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                printf("\t\t\t\t\tSomething went wrong! Try again\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                        }
+                                                                        if(n==2)
+                                                                        {
+                                                                            n=0;
+                                                                            printf("\t\t\t\t\tSuccessfully canceled.\n");
+                                                                            printf("\t\t\t\t\t_______________________________________\n");
+                                                                        }
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    if(n==4)
+                                                                    {
+                                                                        n=0;
+                                                                        system("cls");
+
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\n\t\t\t\t\t    UPDATE CLIENT INFORMATIION\n");
+                                                                        printf("\t\t\t\t\t_______________________________________\n");
+                                                                        printf("\t\t\t\t\tAC Name: %s\n\n",user.name);
+                                                                        printf("\t\t\t\t\tPresent AC Number  : %s\n\n",user.phonenumber);
+
+                                                                        printf("\t\t\t\t\tEnter New AC Number: ");
+                                                                        fgets(update_info,15,stdin);
+                                                                        update_info[strlen(update_info)-1]=0;
+                                                                        printf("\t\t\t\t\tConfirm Submission: ");
+                                                                        printf("\n\t\t\t\t\t1.YES\n\t\t\t\t\t2.NO\n\t\t\t\t\t");
+                                                                        scanf("%d",&n);
+                                                                        if(n==1)
+                                                                        {
+                                                                            n=0;
+                                                                            strcpy(createFile,user.phonenumber);
+                                                                            rename(createFile,update_info);
+                                                                            strcpy(user.phonenumber,update_info);
+                                                                            strcpy(createFile,user.phonenumber);
+                                                                            file = fopen(strcat(createFile," "),"w");
+                                                                            fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                            fclose(file);
+                                                                            if(fwrite!=NULL)
+                                                                            {
+                                                                                printf("\t\t\t\t\tSuccessfully Update AC Number!\n\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                printf("\t\t\t\t\tSomething went wrong! Try again\n");
+                                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                            }
+
+
+                                                                        }
+                                                                        if(n==2)
+                                                                        {
+                                                                            n=0;
+                                                                            printf("\t\t\t\t\tSuccessfully canceled.\n");
+                                                                            printf("\t\t\t\t\t_______________________________________\n");
+                                                                        }
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    if(n==6)
+                                                                    {
+                                                                        system("cls");
+                                                                        printf("\t\t\t\t\t________________________________________\n\n");
+                                                                        printf("\t\t\t\t\t            CLIENT UPDATE DETAILS\n");
+                                                                        printf("\t\t\t\t\t________________________________________\n\n");
+                                                                        printf("\t\t\t\t\tAC Name    : %s\n",user.name);
+                                                                        printf("\t\t\t\t\tAC Number  : %s\n",user.phonenumber);
+                                                                        printf("\t\t\t\t\tAC NID     : %s\n",user.nid);
+                                                                        printf("\t\t\t\t\tAC Gmail   : %s\n",user.gmail);
+                                                                        printf("\t\t\t\t\t________________________________________\n");
+                                                                        cont_loop(n);
+                                                                    }
+                                                                    if(n==7)
+                                                                    {
+                                                                        n=0;
+                                                                        break;
+                                                                    }
+                                                                    if(n==8)
+                                                                    {
+                                                                        n=0;
+                                                                        exit(0);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        if(n==5)
+                                                        {
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            printf("\n\t\t\t\t\t MANAGEMENT INFORMATIION\n");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+
+                                                            printf("\n\t\t\t\t\tEnter UserName: ");
+                                                            scanf("%s",&login_user_ac);
+                                                            strcpy(createFile,login_user_ac);
+                                                            file = fopen(strcat(createFile,".dat"),"r");
+                                                            fread(&user,sizeof(struct userinfo),1,file);
+                                                            fclose(file);
+                                                            if(file==NULL)
+                                                            {
+                                                                printf("\n\t\t\t\t\tAccount Invalid\n");
+                                                            }
+                                                            else
+                                                            {
+                                                                system("cls");
+                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                                printf("\n\t\t\t\t\t       MANAGEMENT INFORMATIION\n");
+                                                                printf("\t\t\t\t\t_______________________________________\n\n");
+                                                                printf("\t\t\t\t\tAC Name       : %s\n",user.name);
+                                                                printf("\t\t\t\t\tAC Number     : %s\n",user.phonenumber);
+                                                                printf("\t\t\t\t\tNID Number    : %s\n",user.nid);
+                                                                printf("\t\t\t\t\tAC Gmail      : %s\n\n",user.gmail);
+                                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                            }
+                                                            cont_loop(n);
+                                                        }
                                                         if(n==7)
                                                         {
                                                             n=0;
