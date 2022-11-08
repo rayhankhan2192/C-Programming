@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include<error.h>
 struct userinfo
 {
     char name[30];
@@ -30,7 +29,7 @@ struct adminInfo
     char address[50];
     char pass_1[30];
     char pass_2[30];
-    char date[10];
+    char date[30];
     char login_pass[15];
 } admin;
 struct manageInfo
@@ -48,6 +47,10 @@ struct manageInfo
     char date[10];
     char login_pass[15];
 } management;
+struct balance
+{
+    float balance;
+} total_balance;
 void cont_loop(int n)
 {
     printf("\t\t\t\t\t1.Back\n\t\t\t\t\t2.Exit\n");
@@ -242,6 +245,7 @@ void crecate_management_Ac(FILE *file,char createFile[30],int n)
         }
     }
 }
+
 int main()
 {
     system("COLOR B");
@@ -249,14 +253,21 @@ int main()
     struct userinfo user,user_2nd;
     struct adminInfo admin;
     struct manageInfo management;
+    struct balance total_balance;//for check total balance from admin panel
     char login_password[30],login_userName[30], login_user_ac[15];
     char createFile[30];
-    char ch,remove_file[15];
+    char ch;
     char update_info[30],user_name_2[30];
+    char create_state_file[30]; //create statement file
     float addamount;
     int n1=00,n2=00;//n1=100 for management password generator && n2=200 admin password generator
     FILE *file;
     FILE *pass_file;
+    FILE *fp_amount;
+    FILE *file_statement;
+    time_t t = time(NULL);
+    char *time_str = ctime(&t);
+    time_str[strlen(time_str) - 1] = '\0';
     while(1)
     {
         printf("\t\t\t\t\t____________________________________\n\n");
@@ -355,7 +366,8 @@ int main()
                                     printf("\t\t\t\t\t____________________________________\n\n");
                                     printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
                                     printf("\t\t\t\t\t____________________________________\n");
-                                    printf("\n\t\t\t\t\t Current Balance: %.2f $\n\n",user.balance_);
+                                    printf("\n\t\t\t\t\tCurrent Balance: $ %.2f\n\n",user.balance_);
+                                    printf("\t\t\t\t\t____________________________________\n");
                                     cont_loop(n);
                                 }
                                 //withdraw amount
@@ -368,6 +380,9 @@ int main()
                                     printf("\t\t\t\t\t____________________________________\n");
                                     printf("\t\t\t\t\tEnter the amount: ");
                                     scanf("%f",&addamount);
+                                    fp_amount = fopen("Total_Balance","r");
+                                    fread(&total_balance,sizeof(struct balance),1,fp_amount);
+                                    fclose(fp_amount);
                                     if(addamount > user.balance_)
                                     {
                                         printf("\t\t\t\t\tNot enough balance\n\n");
@@ -387,8 +402,20 @@ int main()
                                                 file = fopen(createFile,"w");
                                                 fwrite(&user,sizeof(struct userinfo),1,file);
                                                 fclose(file);
-                                                system("cls");
-                                                printf("\t\t\t\t\t Successfully Withdraw\n");
+                                                total_balance.balance -= addamount;
+                                                fp_amount = fopen("Total_Balance","w");
+                                                fwrite(&total_balance,sizeof(struct balance),1,fp_amount);
+                                                fclose(fp_amount);
+                                                char withdraw_file[30];//open statement file
+                                                strcpy(withdraw_file,createFile);
+                                                file_statement = fopen(strcat(withdraw_file,".statement"),"a+");
+                                                fprintf(file_statement,"You've Debited amount    = $ %.2f  \t\t\t%s\n",addamount,time_str);
+                                                fclose(file_statement);
+                                                strcpy(create_state_file,__DATE__);
+                                                file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                fprintf(file_statement,"%s have debited amount  = $ %.2f \t\t\t%s\n",user.phonenumber,addamount,time_str);
+                                                fclose(file_statement);
+                                                printf("\n\t\t\t\t\t Successfully debited $ %.2f\n\n",addamount);
                                                 cont_loop(n);
                                             }
                                         }
@@ -435,14 +462,25 @@ int main()
                                                 file = fopen(createFile,"w");
                                                 fwrite(&user_2nd,sizeof(struct userinfo),1,file);
                                                 fclose(file);
+                                                file_statement = fopen(strcat(createFile,".statement"),"a+");
+                                                fprintf(file_statement,"You've received amount   = $ %.2f from %s \t\t%s\n",addamount,user.phonenumber,time_str);
+                                                fclose(file_statement);
                                                 if(fwrite!=NULL)
                                                 {
-                                                    printf("\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n",addamount,transfer_AC);
+                                                    printf("\n\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n\n",addamount,transfer_AC);
                                                     strcpy(createFile, user.phonenumber);
                                                     user.balance_-=addamount;
                                                     file = fopen(strcat(createFile," "),"w");
                                                     fwrite(&user,sizeof(struct userinfo),1,file);
                                                     fclose(file);
+                                                    strcpy(create_state_file,createFile);
+                                                    file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                    fprintf(file_statement,"You've transfered amount = $ %.2f to %s \t\t%s\n",addamount,transfer_AC,time_str);
+                                                    fclose(file_statement);
+                                                    strcpy(create_state_file,__DATE__);
+                                                    file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                    fprintf(file_statement,"%s've transfered amount = $ %.2f to %s \t\t%s\n",user.phonenumber,addamount,transfer_AC,time_str);
+                                                    fclose(file_statement);
                                                     cont_loop(n);
                                                 }
                                                 else
@@ -453,6 +491,25 @@ int main()
                                             }
                                         }
                                     }
+                                }
+                                if(n==4)
+                                {
+                                    n=0;
+                                    system("cls");
+                                    printf("\t\t\t______________________________________________\n\n");
+                                    printf("\t\t\t                YOUR STATEMENT\n");
+                                    printf("\t\t\t______________________________________________\n\n");
+                                    char withdraw_file[30];
+                                    strcpy(withdraw_file,createFile);
+                                    file_statement = fopen(strcat(withdraw_file,".statement"),"r");
+
+                                    while(!feof(file_statement))
+                                    {
+                                        ch = fgetc(file_statement);
+                                        printf("%c",ch);
+                                    }
+                                    printf("\n\n");
+                                    cont_loop(n);
                                 }
                                 if(n==5)
                                 {
@@ -678,7 +735,11 @@ int main()
                                                                 if(n==1)
                                                                 {
                                                                     system("cls");
+                                                                    printf("\t\t\t\t\t____________________________________\n\n");
+                                                                    printf("\t\t\t\t\t      ONLINE BANKING SYSTEM\n");
+                                                                    printf("\t\t\t\t\t____________________________________\n");
                                                                     printf("\n\t\t\t\t\tCurrent Balance: %.2f $\n\n",user.balance_);
+                                                                    printf("\t\t\t\t\t____________________________________\n");
                                                                     cont_loop(n);
                                                                 }
                                                                 //add amount
@@ -691,6 +752,10 @@ int main()
                                                                     printf("\t\t\t\t\t____________________________________\n");
                                                                     printf("\t\t\t\t\tEnter the amount: ");
                                                                     scanf("%f",&addamount);
+                                                                    fp_amount = fopen("Total_Balance","r");
+                                                                    fread(&total_balance,sizeof(struct balance),1,fp_amount);
+                                                                    fclose(fp_amount);
+
                                                                     if(fread!=NULL)
                                                                     {
                                                                         printf("\t\t\t\t\tDo you want to confirm:\n");
@@ -703,8 +768,20 @@ int main()
                                                                             file = fopen(createFile,"w");
                                                                             fwrite(&user,sizeof(struct userinfo),1,file);
                                                                             fclose(file);
-                                                                            system("cls");
-                                                                            printf("\t\t\t\t\tSuccessfully Deposit\n");
+                                                                            total_balance.balance += addamount;
+                                                                            fp_amount = fopen("Total_Balance","w");
+                                                                            fwrite(&total_balance,sizeof(struct balance),1,fp_amount);
+                                                                            fclose(fp_amount);
+                                                                            char add_amount_file[30];//open statement file
+                                                                            strcpy(add_amount_file,createFile);
+                                                                            file_statement = fopen(strcat(add_amount_file,".statement"),"a+");
+                                                                            fprintf(file_statement,"You've credited amount   = $ %.2f  \t\t\t%s\n",addamount,time_str);
+                                                                            fclose(file_statement);
+                                                                            strcpy(create_state_file,__DATE__);
+                                                                            file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                                            fprintf(file_statement,"%s have credited amount = $ %.2f \t\t\t%s\n",user.phonenumber,addamount,time_str);
+                                                                            fclose(file_statement);
+                                                                            printf("\n\t\t\t\t\t Successfully credited $ %.2f\n\n",addamount);
                                                                             cont_loop(n);
                                                                         }
                                                                     }
@@ -719,6 +796,9 @@ int main()
                                                                     printf("\t\t\t\t\t____________________________________\n");
                                                                     printf("\t\t\t\t\tEnter the amount: ");
                                                                     scanf("%f",&addamount);
+                                                                    fp_amount = fopen("Total_Balance","r");
+                                                                    fread(&total_balance,sizeof(struct balance),1,fp_amount);
+                                                                    fclose(fp_amount);
                                                                     if(addamount > user.balance_)
                                                                     {
                                                                         printf("\t\t\t\t\tNot enough balance\n\n");
@@ -738,7 +818,20 @@ int main()
                                                                                 file = fopen(createFile,"w");
                                                                                 fwrite(&user,sizeof(struct userinfo),1,file);
                                                                                 fclose(file);
-                                                                                printf("\t\t\t\t\tSuccessfully Withdraw\n");
+                                                                                total_balance.balance -= addamount;
+                                                                                fp_amount = fopen("Total_Balance","w");
+                                                                                fwrite(&total_balance,sizeof(struct balance),1,fp_amount);
+                                                                                fclose(fp_amount);
+                                                                                char withdraw_file[30];//open statement file
+                                                                                strcpy(withdraw_file,createFile);
+                                                                                file_statement = fopen(strcat(withdraw_file,".statement"),"a+");
+                                                                                fprintf(file_statement,"You've Debited amount    = $ %.2f  \t\t\t%s\n",addamount,time_str);
+                                                                                fclose(file_statement);
+                                                                                strcpy(create_state_file,__DATE__);
+                                                                                file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                                                fprintf(file_statement,"%s have debited amount  = $ %.2f \t\t\t%s\n",user.phonenumber,addamount,time_str);
+                                                                                fclose(file_statement);
+                                                                                printf("\n\t\t\t\t\t Successfully debited $ %.2f\n\n",addamount);
                                                                                 cont_loop(n);
                                                                             }
                                                                         }
@@ -784,16 +877,29 @@ int main()
                                                                                 file = fopen(createFile,"w");
                                                                                 fwrite(&user_2nd,sizeof(struct userinfo),1,file);
                                                                                 fclose(file);
+                                                                                time_t t = time(NULL);
+                                                                                char *time_str = ctime(&t);
+                                                                                time_str[strlen(time_str) - 1] = '\0';
+                                                                                file_statement = fopen(strcat(createFile,".statement"),"a+");
+                                                                                fprintf(file_statement,"You've received amount   = $ %.2f from %s \t\t%s\n",addamount,user.phonenumber,time_str);
+                                                                                fclose(file_statement);
                                                                                 if(fwrite!=NULL)
                                                                                 {
-                                                                                    printf("\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n",addamount,transfer_AC);
+                                                                                    printf("\n\t\t\t\t\tSuccessfully Transfered $ %.2f to %s\n\n",addamount,transfer_AC);
                                                                                     strcpy(createFile, user.phonenumber);
                                                                                     user.balance_-=addamount;
                                                                                     file = fopen(strcat(createFile," "),"w");
                                                                                     fwrite(&user,sizeof(struct userinfo),1,file);
                                                                                     fclose(file);
+                                                                                    strcpy(create_state_file,createFile);
+                                                                                    file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                                                    fprintf(file_statement,"You've transfered amount = $ %.2f to %s \t\t%s\n",addamount,transfer_AC,time_str);
+                                                                                    fclose(file_statement);
+                                                                                    strcpy(create_state_file,__DATE__);
+                                                                                    file_statement = fopen(strcat(create_state_file,".statement"),"a+");
+                                                                                    fprintf(file_statement,"%s've transfered amount = $ %.2f to %s \t\t%s\n",user.phonenumber,addamount,transfer_AC,time_str);
+                                                                                    fclose(file_statement);
                                                                                     cont_loop(n);
-
                                                                                 }
                                                                                 else
                                                                                 {
@@ -803,6 +909,25 @@ int main()
                                                                             }
                                                                         }
                                                                     }
+                                                                }
+                                                                if(n==5)
+                                                                {
+                                                                    n=0;
+                                                                    system("cls");
+                                                                    printf("\t\t\t______________________________________________\n\n");
+                                                                    printf("\t\t\t                YOUR STATEMENT\n");
+                                                                    printf("\t\t\t______________________________________________\n\n");
+                                                                    char withdraw_file[30];
+                                                                    strcpy(withdraw_file,createFile);
+                                                                    file_statement = fopen(strcat(withdraw_file,".statement"),"r");
+
+                                                                    while(!feof(file_statement))
+                                                                    {
+                                                                        ch = fgetc(file_statement);
+                                                                        printf("%c",ch);
+                                                                    }
+                                                                    printf("\n\n");
+                                                                    cont_loop(n);
                                                                 }
                                                                 if(n==6)
                                                                 {
@@ -990,6 +1115,48 @@ int main()
                                                         printf("\t\t\t\t_______________________________________________________________\n\n");
                                                         printf("\t\t\t\tChoose an option: ");
                                                         scanf("%d",&n);
+                                                        if(n==1)
+                                                        {
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            printf("\n\t\t\t\t\t     TOTAL BALANCE\n");
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            fp_amount = fopen("Total_Balance","r");
+                                                            fread(&total_balance,sizeof(struct balance),1,fp_amount);
+                                                            fclose(fp_amount);
+                                                            printf("\n\t\t\t\t\tTotal Balance: $ %.2f\n",total_balance.balance);
+                                                            printf("\t\t\t\t\t_______________________________\n");
+                                                            cont_loop(n);
+                                                        }
+                                                        fgetc(stdin);
+                                                        if(n==2)
+                                                        {
+                                                            system("cls");
+
+                                                            printf("\t\t\t\t\t______________________________________\n");
+                                                            printf("\n\t\t\t\t\t             STATEMENT\n");
+                                                            printf("\t\t\t\t\t______________________________________\n");
+                                                            printf("\t\t\t\t\tEnter Date : ");
+                                                            fgets(admin.date,30,stdin);
+                                                            admin.date[strlen(admin.date)-1]=0;
+                                                            strcpy(create_state_file,admin.date);
+                                                            file_statement = fopen(strcat(create_state_file,".statement"),"r+");
+                                                            if(file_statement==NULL)
+                                                            {
+                                                                printf("\n\t\t\t\t\tStatement not available on this day!\n\n");
+                                                            }
+                                                            else
+                                                            {
+                                                                printf("\n");
+                                                                while(!feof(file_statement))
+                                                                {
+                                                                    ch = fgetc(file_statement);
+                                                                    printf("%c",ch);
+                                                                }
+                                                                printf("\n\n");
+                                                            }
+                                                            cont_loop(n);
+                                                        }
                                                         if(n==3)
                                                         {
                                                             system("cls");
