@@ -94,7 +94,7 @@ void apply_user_Ac(FILE *file,char createFile[30],int n)
         strcpy(user.date,__DATE__);
         strcpy(createFile,user.date);
         file = fopen(strcat(createFile,".txt"),"a+");
-        fprintf(file,"%s\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s\t\t\t\t%s\n",user.name,user.phonenumber,user.nid,user.gmail,user.address);
+        fprintf(file,"%s\t\t\t%s\t\t\t%s\t\t\t%s\t\t\t\t%s\n",user.name,user.phonenumber,user.nid,user.gmail,user.address);
         fclose(file);
         system("cls");
         printf("\t\t\t\t\t____________________________________\n\n");
@@ -265,6 +265,7 @@ int main()
     FILE *pass_file;
     FILE *fp_amount;
     FILE *file_statement;
+
     time_t t = time(NULL);
     char *time_str = ctime(&t);
     time_str[strlen(time_str) - 1] = '\0';
@@ -523,8 +524,45 @@ int main()
                                 }
                             }
                         }
+                        if(n==2)
+                        {
+                            n=0;
+                            char old_pass[30];
+                            file = fopen(createFile,"r");
+                            fread(&user,sizeof(struct userinfo),1,file);
+                            fclose(file);
+                            system("cls");
+                            printf("\t\t\t\t\t________________________________________\n");
+                            printf("\n\t\t\t\t\t      CHANGE  USER PASSWORD\n");
+                            printf("\t\t\t\t\t________________________________________\n");
+                            printf("\t\t\t\t\tEnter old password : ");
+                            scanf("%s",&old_pass);
+                            if(!strcmp(old_pass,user.password))
+                            {
+                                printf("\t\t\t\t\tEnter new password : ");
+                                scanf("%s",&user.password);
+                                printf("\t\t\t\t\tReEnter password   : ");
+                                scanf("%s",&user.Re_enter_pass);
+                                if(!strcmp(user.password,user.Re_enter_pass))
+                                {
+                                    file = fopen(createFile,"w");
+                                    fwrite(&user,sizeof(struct userinfo),1,file);
+                                    fclose(file);
+                                    if(fwrite!=NULL)
+                                        printf("\n\t\t\t\t\tPassword Successfully Changed\n\n");
+                                    else
+                                        printf("\n\t\t\t\t\tSomething Went Wrong!\n\n");
+                                }
+                                else
+                                    printf("\n\t\t\t\t\tPassword doesn't matched!\n\n");
+                            }
+                            else
+                                printf("\n\t\t\t\t\tPrevious password doesn't matched\n\n");
+                            cont_loop(n);
+                        }
                         if(n==3)
                         {
+                            n=0;
                             system("cls");
                             printf("\t\t\t\t\t______________________________________________\n\n");
                             printf("\t\t\t\t\t                YOUR DETAILS\n");
@@ -658,6 +696,35 @@ int main()
                                         printf("\t\t\t\t_____________________________________________________________\n\n");
                                         printf("\t\t\t\tChoose an option: ");
                                         scanf("%d",&n);
+                                        if(n==1)
+                                        {
+                                            system("cls");
+                                            printf("\t\t\t\t\t_______________________________\n");
+                                            printf("\n\t\t\t\t\t   CLIENT INFORMATIION\n");
+                                            printf("\t\t\t\t\t_______________________________\n");
+                                            printf("\n\t\t\t\t\tEnter AC number: ");
+                                            scanf("%s",&login_user_ac);
+                                            strcpy(createFile,login_user_ac);
+                                            file = fopen(strcat(createFile," "),"r");
+                                            fread(&user,sizeof(struct userinfo),1,file);
+                                            fclose(file);
+                                            if(file==NULL)
+                                                printf("\n\t\t\t\t\tAccount Invalid\n");
+                                            else
+                                            {
+                                                system("cls");
+                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                printf("\n\t\t\t\t\t       CLIENT INFORMATIION\n");
+                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                printf("\t\t\t\t\tTotal Balance : $ %.2f\n\n",user.balance_);
+                                                printf("\t\t\t\t\tAC Name       : %s\n",user.name);
+                                                printf("\t\t\t\t\tAC Number     : %s\n",user.phonenumber);
+                                                printf("\t\t\t\t\tNID Number    : %s\n",user.nid);
+                                                printf("\t\t\t\t\tAC Gmail      : %s\n\n",user.gmail);
+                                                printf("\t\t\t\t\t_______________________________________\n");
+                                            }
+                                            cont_loop(n);
+                                        }
                                         if(n==2)
                                         {
                                             n=0;
@@ -705,7 +772,7 @@ int main()
                                                         printf("\t\t\t\t\t____________________________________\n");
                                                         printf("\t\t\t\t\tAC Holder Name: %s\n\n",user.name);
                                                         printf("\t\t\t\t\t 1.GO TO TRANSACTION PAGE\n");
-                                                        printf("\t\t\t\t\t 2.CHANGE PASSWORD\n");
+                                                        printf("\t\t\t\t\t 2.RESET USER PASSWORD\n");
                                                         printf("\t\t\t\t\t 3.YOUR DETAILS\n");
                                                         printf("\t\t\t\t\t 4.BACK\n");
                                                         printf("\t\t\t\t\t 5.EXIT\n");
@@ -941,6 +1008,42 @@ int main()
                                                                 }
                                                             }
                                                         }
+                                                        if(n==2)
+                                                        {
+                                                            n=0;
+                                                            char old_pass[30];
+                                                            file = fopen(createFile,"r");
+                                                            fread(&user,sizeof(struct userinfo),1,file);
+                                                            fclose(file);
+                                                            system("cls");
+                                                            printf("\t\t\t\t\t________________________________________\n");
+                                                            printf("\n\t\t\t\t\t       RESET  USER PASSWORD\n");
+                                                            printf("\t\t\t\t\t________________________________________\n");
+                                                            //printf("\t\t\t\t\tEnter old password : ");
+                                                            //scanf("%s",&old_pass);
+                                                            //if(!strcmp(old_pass,user.password))
+                                                            {
+                                                                printf("\t\t\t\t\tEnter new password : ");
+                                                                scanf("%s",&user.password);
+                                                                printf("\t\t\t\t\tReEnter password   : ");
+                                                                scanf("%s",&user.Re_enter_pass);
+                                                                if(!strcmp(user.password,user.Re_enter_pass))
+                                                                {
+                                                                    file = fopen(createFile,"w");
+                                                                    fwrite(&user,sizeof(struct userinfo),1,file);
+                                                                    fclose(file);
+                                                                    if(fwrite!=NULL)
+                                                                        printf("\n\t\t\t\t\tPassword Successfully Changed\n\n");
+                                                                    else
+                                                                        printf("\n\t\t\t\t\tSomething Went Wrong!\n\n");
+                                                                }
+                                                                else
+                                                                    printf("\n\t\t\t\t\tPassword doesn't matched!\n\n");
+                                                            }
+                                                            //else
+                                                            //printf("\n\t\t\t\t\tPrevious password doesn't matched\n\n");
+                                                            cont_loop(n);
+                                                        }
                                                         if(n==3)
                                                         {
                                                             system("cls");
@@ -967,6 +1070,36 @@ int main()
                                                 }
                                             }
                                         }
+                                        fgetc(stdin);
+                                        if(n==3)
+                                        {
+                                            system("cls");
+
+                                            printf("\t\t\t\t\t______________________________________\n");
+                                            printf("\n\t\t\t\t\t             USER APPLY\n");
+                                            printf("\t\t\t\t\t______________________________________\n");
+                                            printf("\t\t\t\t\tEnter Date : ");
+                                            fgets(management.date,30,stdin);
+                                            management.date[strlen(management.date)-1]=0;
+                                            strcpy(createFile,management.date);
+                                            file = fopen(strcat(createFile,".txt"),"r");
+                                            if(file==NULL)
+                                            {
+                                                printf("\n\t\t\t\t\tStatement not available on this day!\n\n");
+                                            }
+                                            else
+                                            {
+                                                printf("\n");
+                                                while(!feof(file))
+                                                {
+                                                    ch = fgetc(file);
+                                                    printf("%c",ch);
+                                                }
+                                                printf("\n\n");
+                                            }
+                                            cont_loop(n);
+
+                                        }
                                         if(n==4)
                                         {
                                             n=0;
@@ -975,6 +1108,71 @@ int main()
                                             printf("\n\t\t\t\t\t     CREATE USER AC\n");
                                             printf("\t\t\t\t\t_______________________________\n");
                                             crecate_user_Ac(file,createFile,n);
+                                            cont_loop(n);
+                                        }
+                                        if(n==5)
+                                        {
+                                            n=0;
+                                            system("cls");
+                                            printf("\t\t\t\t\t_______________________________\n");
+                                            printf("\n\t\t\t\t\t MANAGEMENT INFORMATIION\n");
+                                            printf("\t\t\t\t\t_______________________________\n");
+                                            printf("\n\t\t\t\t\tEnter UserName: ");
+                                            scanf("%s",&login_user_ac);
+                                            strcpy(createFile,login_user_ac);
+                                            file = fopen(strcat(createFile,".dat"),"r");
+                                            fread(&management,sizeof(struct manageInfo),1,file);
+                                            fclose(file);
+                                            if(file==NULL)
+                                                printf("\n\n\t\t\t\t\tAccount Invalid\n\n");
+                                            else
+                                            {
+                                                system("cls");
+                                                printf("\t\t\t\t\t_______________________________________\n");
+                                                printf("\n\t\t\t\t\t       MANAGEMENT INFORMATIION\n");
+                                                printf("\t\t\t\t\t_______________________________________\n\n");
+                                                printf("\t\t\t\t\tAC Name       : %s\n",management.name);
+                                                printf("\t\t\t\t\tAC Number     : %s\n",management.phonenumber);
+                                                printf("\t\t\t\t\tNID Number    : %s\n",management.nid);
+                                                printf("\t\t\t\t\tAC Gmail      : %s\n\n",management.gmail);
+                                                printf("\t\t\t\t\t_______________________________________\n");
+                                            }
+                                            cont_loop(n);
+                                        }
+                                        if(n==6)
+                                        {
+                                            n=0;
+                                            char old_pass[30];
+                                            file = fopen(createFile,"r");
+                                            fread(&management,sizeof(struct manageInfo),1,file);
+                                            fclose(file);
+                                            system("cls");
+                                            printf("\t\t\t\t\t________________________________________\n");
+                                            printf("\n\t\t\t\t\t      CHANGE ADMIN PASSWORD\n");
+                                            printf("\t\t\t\t\t________________________________________\n");
+                                            printf("\t\t\t\t\tEnter old password : ");
+                                            scanf("%s",&old_pass);
+                                            if(!strcmp(old_pass,management.password))
+                                            {
+                                                printf("\t\t\t\t\tEnter new password : ");
+                                                scanf("%s",&management.password);
+                                                printf("\t\t\t\t\tReEnter password   : ");
+                                                scanf("%s",&management.Re_enter_pass);
+                                                if(!strcmp(management.password,management.Re_enter_pass))
+                                                {
+                                                    file = fopen(createFile,"w");
+                                                    fwrite(&management,sizeof(struct manageInfo),1,file);
+                                                    fclose(file);
+                                                    if(fwrite!=NULL)
+                                                        printf("\n\t\t\t\t\tPassword Successfully Changed\n\n");
+                                                    else
+                                                        printf("\n\t\t\t\t\tSomething Went Wrong!\n\n");
+                                                }
+                                                else
+                                                    printf("\n\t\t\t\t\tPassword doesn't matched!\n\n");
+                                            }
+                                            else
+                                                printf("\n\t\t\t\t\tPrevious password doesn't matched\n\n");
                                             cont_loop(n);
                                         }
                                         if(n==7)
@@ -1724,6 +1922,7 @@ int main()
                                                         }
                                                         if(n==10)
                                                         {
+
                                                             n=0;
                                                             exit(0);
                                                         }
