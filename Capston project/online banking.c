@@ -1113,6 +1113,7 @@ int main()
                                         if(n==5)
                                         {
                                             n=0;
+
                                             system("cls");
                                             printf("\t\t\t\t\t_______________________________\n");
                                             printf("\n\t\t\t\t\t MANAGEMENT INFORMATIION\n");
