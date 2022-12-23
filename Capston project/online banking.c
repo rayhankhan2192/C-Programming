@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include<stdlib.h>
+//#include<stdlib.h>
 struct userinfo
 {
     char name[30];
@@ -128,6 +128,9 @@ void crecate_user_Ac(FILE *file,char createFile[30],int n)
     printf("\t\t\t\t\tEnter Gmail\t : ");
     fgets(user.gmail,30,stdin);
     user.gmail[strlen(user.gmail)-1] = 0;
+    printf("\t\t\t\t\tEnter Address\t : ");
+    fgets(user.address,30,stdin);
+    user.address[strlen(user.address)-1] = 0;
     strcpy(createFile,user.phonenumber);
     file = fopen(strcat(createFile," "),"r");
     fread(&user,sizeof(struct userinfo),1,file);
@@ -277,9 +280,8 @@ int main()
         printf("\t\t\t\t\t  1.APPLY FOR CREATE AC\n");
         printf("\t\t\t\t\t  2.LOGIN INTO USER AC\n");
         printf("\t\t\t\t\t  3.BANK MANAGEMENT\n");
-        printf("\t\t\t\t\t  4.ABOUT US\n");
-        printf("\t\t\t\t\t  5.HELP LINE\n");
-        printf("\t\t\t\t\t  6.EXIT\n");
+        printf("\t\t\t\t\t  4.HELP LINE\n");
+        printf("\t\t\t\t\t  5.EXIT\n");
         printf("\t\t\t\t\t____________________________________\n\n");
         printf("\t\t\t\t\tChoose an option: ");
         scanf("%d",&n);
@@ -571,7 +573,7 @@ int main()
                             printf("\t\t\t\t\tAC Number\t: %s\n",user.phonenumber);
                             printf("\t\t\t\t\tAC NID\t\t: %s\n",user.nid);
                             printf("\t\t\t\t\tAC Gmail\t: %s\n",user.gmail);
-                            printf("\t\t\t\t\tAddress \t: \n");
+                            printf("\t\t\t\t\tAddress \t: %s\n",user.address);
                             printf("\t\t\t\t\t______________________________________________\n\n");
                             cont_loop(n);
                         }
@@ -1085,7 +1087,7 @@ int main()
                                             file = fopen(strcat(createFile,".txt"),"r");
                                             if(file==NULL)
                                             {
-                                                printf("\n\t\t\t\t\tStatement not available on this day!\n\n");
+                                                printf("\n\t\t\t\t\tApply not available on this day!\n\n");
                                             }
                                             else
                                             {
@@ -1412,10 +1414,10 @@ int main()
                                                                     printf("\t\t\t\t\t 2.Gmail\n");
                                                                     printf("\t\t\t\t\t 3.NID\n");
                                                                     printf("\t\t\t\t\t 4.Number\n");
-                                                                    printf("\t\t\t\t\t 5.Address\n");
-                                                                    printf("\t\t\t\t\t 6.Check Update\n\n");
-                                                                    printf("\t\t\t\t\t 7.Back\n");
-                                                                    printf("\t\t\t\t\t 8.Exit\n");
+                                                                    //printf("\t\t\t\t\t 5.Address\n");
+                                                                    printf("\t\t\t\t\t 5.Check Update\n\n");
+                                                                    printf("\t\t\t\t\t 6.Back\n");
+                                                                    printf("\t\t\t\t\t 7.Exit\n");
                                                                     printf("\t\t\t\t\t_______________________________________\n");
                                                                     printf("\t\t\t\t\tChoose an option: ");
                                                                     scanf("%d",&n);
@@ -1587,7 +1589,7 @@ int main()
                                                                         }
                                                                         cont_loop(n);
                                                                     }
-                                                                    if(n==6)
+                                                                    if(n==5)
                                                                     {
                                                                         system("cls");
                                                                         printf("\t\t\t\t\t________________________________________\n\n");
@@ -1600,12 +1602,12 @@ int main()
                                                                         printf("\t\t\t\t\t________________________________________\n");
                                                                         cont_loop(n);
                                                                     }
-                                                                    if(n==7)
+                                                                    if(n==6)
                                                                     {
                                                                         n=0;
                                                                         break;
                                                                     }
-                                                                    if(n==8)
+                                                                    if(n==7)
                                                                     {
                                                                         n=0;
                                                                         exit(0);
@@ -1671,10 +1673,10 @@ int main()
                                                                     printf("\t\t\t\t\t 2.Gmail\n");
                                                                     printf("\t\t\t\t\t 3.NID\n");
                                                                     printf("\t\t\t\t\t 4.Number\n");
-                                                                    printf("\t\t\t\t\t 5.Address\n");
-                                                                    printf("\t\t\t\t\t 6.Check Update\n\n");
-                                                                    printf("\t\t\t\t\t 7.Back\n");
-                                                                    printf("\t\t\t\t\t 8.Exit\n");
+
+                                                                    printf("\t\t\t\t\t 5.Check Update\n\n");
+                                                                    printf("\t\t\t\t\t 6.Back\n");
+                                                                    printf("\t\t\t\t\t 7.Exit\n");
                                                                     printf("\t\t\t\t\t_________________________________________\n");
                                                                     printf("\t\t\t\t\tChoose an option: ");
                                                                     scanf("%d",&n);
@@ -1843,8 +1845,9 @@ int main()
                                                                         }
                                                                         cont_loop(n);
                                                                     }
-                                                                    if(n==6)
+                                                                    if(n==5)
                                                                     {
+                                                                        n=0;
                                                                         system("cls");
                                                                         printf("\t\t\t\t\t________________________________________\n\n");
                                                                         printf("\t\t\t\t\t        MANAGEMENT UPDATE DETAILS\n");
@@ -1856,12 +1859,12 @@ int main()
                                                                         printf("\t\t\t\t\t________________________________________\n");
                                                                         cont_loop(n);
                                                                     }
-                                                                    if(n==7)
+                                                                    if(n==6)
                                                                     {
                                                                         n=0;
                                                                         break;
                                                                     }
-                                                                    if(n==8)
+                                                                    if(n==7)
                                                                     {
                                                                         n=0;
                                                                         exit(0);
@@ -1990,21 +1993,15 @@ int main()
         {
             n=0;
             system("cls");
-            printf("\t\t\t\t\t________________________________________\n\n");
-            printf("\t\t\t\t\t Upcoming features will available soon!\n");
-            printf("\t\t\t\t\t________________________________________\n\n");
+            file = fopen("helpline","r");
+            while(!feof(file))
+            {
+                ch = fgetc(file);
+                printf("%c",ch);
+            }
             cont_loop(n);
         }
         if(n==5)
-        {
-            n=0;
-            system("cls");
-            printf("\t\t\t\t\t________________________________________\n\n");
-            printf("\t\t\t\t\t Upcoming features will available soon!\n");
-            printf("\t\t\t\t\t________________________________________\n\n");
-            cont_loop(n);
-        }
-        if(n==6)
             exit(1);
         system("cls");
     }
