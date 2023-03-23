@@ -14,6 +14,7 @@ int main(){
             cout<<"HARD"<<endl;
             return 0;
         }
+        
     }
     cout<<"EASY"<<endl;
 }
